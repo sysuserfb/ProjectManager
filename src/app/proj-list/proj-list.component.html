@@ -1,0 +1,18 @@
+<div style="width:500px;">
+  <!--ngif-->
+    <nz-card style="width:300px;" [nzBordered]="false">
+        <ng-template #title>
+          Card title
+        </ng-template>
+        <ng-template #extra>
+          <a>More</a>
+        </ng-template>
+        <ng-template #body>
+          <p>平台</p>
+          <p>操作系统</p>
+          <p>当前版本</p>
+        </ng-template>
+      </nz-card>
+
+    <nz-pagination [nzPageIndex]="1" [nzTotal]="500"></nz-pagination>
+</div>
