@@ -31,7 +31,7 @@
     color: #108ee9;
   }
   .logo img{
-      padding-right: 5px;
+      padding-right: 3px;
     vertical-align:middle;
   }
 .search{
@@ -44,7 +44,9 @@
 }
 .userProfile{
     padding: 0 24px;
+    padding-bottom: 10px;
     vertical-align: middle;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.67);
 }
 .userProfile .info{
     margin: 0 auto;

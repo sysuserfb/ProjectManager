@@ -1,10 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
-import { AppComponent } from './app.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MenuComponent } from './menu/menu.component';
-
+import { FormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
 import { NgZorroAntdModule }from 'ng-zorro-antd';
+import { AppComponent } from './app.component';
 import { ProjListComponent } from './proj-list/proj-list.component';
 
 @NgModule({
@@ -15,6 +16,9 @@ import { ProjListComponent } from './proj-list/proj-list.component';
   ],
   imports: [
     BrowserModule,
+    FormsModule,
+    HttpModule,
+    BrowserAnimationsModule,
     NgZorroAntdModule.forRoot()
   ],
   providers: [],
