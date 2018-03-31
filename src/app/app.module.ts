@@ -2,24 +2,33 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MenuComponent } from './menu/menu.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule,ReactiveFormsModule  } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { NgZorroAntdModule }from 'ng-zorro-antd';
 import { AppComponent } from './app.component';
 import { ProjListComponent } from './proj-list/proj-list.component';
+import { LoginComponent } from './user/login/login.component';
+import { RegisterComponent } from './user/register/register.component';
+import { DetailComponent } from './detail/detail.component';
+import { AppRoutingModule } from './/app-routing.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     MenuComponent,
-    ProjListComponent
+    ProjListComponent,
+    LoginComponent,
+    RegisterComponent,
+    DetailComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule ,
     HttpModule,
     BrowserAnimationsModule,
-    NgZorroAntdModule.forRoot()
+    NgZorroAntdModule.forRoot(),
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

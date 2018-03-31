@@ -1,0 +1,30 @@
+.userProfile {
+    padding: 0 24px;
+    padding-bottom: 10px;
+    vertical-align: middle;
+  }
+  
+  .userProfile .info {
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+  }
+
+  .member{
+    width:250px;
+    margin-bottom: 20px;
+  }
+  .mem-title{
+      font-size: 20px;
+      padding: 20px 0;
+      border-top: 1px solid rgb(228, 228, 228)
+  }
+  .version{
+      padding: 10px;
+      height:300px;
+  }
+  .text{
+    white-Space:normal;
+    text-indent:2em;
+  }

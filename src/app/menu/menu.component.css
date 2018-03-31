@@ -1,65 +1,81 @@
 :host ::ng-deep .logo {
-    width: 120px;
-    height: 31px;
-    border-radius: 6px;
-    margin: 0 28px 16px 0;
-    float: left;
-    color: white;
-  }
-  :host ::ng-deep .ant-layout-sider-collapsed .nav-text {
-    display: none;
-  }
-
-  :host ::ng-deep .ant-layout-sider-collapsed .ant-menu-submenu-title:after {
-    display: none;
-  }
-
-  :host ::ng-deep .ant-layout-sider-collapsed .anticon {
-    font-size: 16px;
-    margin-left: 8px;
-  }
-
-  :host ::ng-deep .trigger {
-    font-size: 18px;
-    line-height: 64px;
-    padding: 0 16px;
-    cursor: pointer;
-    transition: color .3s;
-  }
-
-  :host ::ng-deep .trigger:hover {
-    color: #108ee9;
-  }
-  .logo img{
-      padding-right: 3px;
-    vertical-align:middle;
-  }
-.search{
-    width: 300px;
-    height: 31px;
-    border-radius: 3px;
-    margin: 16px 28px 16px 0;
-    background-color: #333;
-    color: white;
+  width: 120px;
+  height: 31px;
+  border-radius: 6px;
+  margin: 0 28px 16px 0;
+  float: left;
+  color: white;
 }
-.userProfile{
-    padding: 0 24px;
-    padding-bottom: 10px;
-    vertical-align: middle;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.67);
+
+:host ::ng-deep .ant-layout-sider-collapsed .nav-text {
+  display: none;
 }
-.userProfile .info{
-    margin: 0 auto;
-    padding: 0 10px;
-    position: relative;
-    overflow: hidden;
-    color:white;
-    display: inline-block;
+
+:host ::ng-deep .ant-layout-sider-collapsed .ant-menu-submenu-title:after {
+  display: none;
 }
-:host ::ng-deep .ant-layout-sider-collapsed .userProfile{
-    margin: auto;
-    padding: 0 10px;
+
+:host ::ng-deep .ant-layout-sider-collapsed .anticon {
+  font-size: 16px;
+  margin-left: 8px;
 }
-:host ::ng-deep .ant-layout-sider-collapsed .userProfile .info{
-    display: none;
+
+:host ::ng-deep .trigger {
+  font-size: 18px;
+  line-height: 64px;
+  padding: 0 16px;
+  cursor: pointer;
+  transition: color .3s;
+}
+
+:host ::ng-deep .trigger:hover {
+  color: #108ee9;
+}
+
+.logo img {
+  padding-right: 3px;
+  vertical-align: middle;
+}
+
+.search {
+  width: 300px;
+  height: 31px;
+  border-radius: 3px;
+  margin: 16px 28px 16px 0;
+  background-color: #333;
+  color: white;
+}
+
+.userProfile {
+  padding: 0 24px;
+  padding-bottom: 10px;
+  vertical-align: middle;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.67);
+}
+
+.userProfile .info {
+  margin: 0 auto;
+  padding: 0 10px;
+  position: relative;
+  overflow: hidden;
+  color: white;
+  display: inline-block;
+}
+
+.message {
+  font-size: 2em;
+  color: white;
+}
+
+.fr {
+  float: right;
+}
+
+:host ::ng-deep .ant-layout-sider-collapsed .userProfile {
+  margin: auto;
+  padding: 0 10px;
+}
+
+:host ::ng-deep .ant-layout-sider-collapsed .userProfile .info {
+  display: none;
 }

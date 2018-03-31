@@ -1,12 +1,12 @@
-<div nz-row>
-  <div class="p-list" nz-col [nzSpan]="12">
+
+  <div class="p-list" >
     <!--ngif-->
     <nz-card class="card-list" [nzBordered]="false">
       <ng-template #title>
         荒野行动
       </ng-template>
       <ng-template #extra>
-        <a>More</a>
+        <a routerLink="../detail/1">More</a>
       </ng-template>
       <ng-template #body>
         <p>平台</p>
@@ -19,7 +19,7 @@
         绝地求生
       </ng-template>
       <ng-template #extra>
-        <a>More</a>
+        <a routerLink="../detail/2">More</a>
       </ng-template>
       <ng-template #body>
         <p>平台</p>
@@ -27,10 +27,6 @@
         <p>当前版本</p>
       </ng-template>
     </nz-card>
-    <div nz-col [nzSpan]="1"></div>
-    <nz-pagination [nzPageIndex]="1" [nzTotal]="500"></nz-pagination>
+    <div class="pagin"><nz-pagination [nzPageIndex]="1" [nzTotal]="500"></nz-pagination></div>
   </div>
-  <div class="detail" nz-col [nzSpan]="11">
 
-  </div>
-</div>
