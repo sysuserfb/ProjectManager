@@ -12,7 +12,8 @@ import { RegisterComponent } from './user/register/register.component';
 import { DetailComponent } from './detail/detail.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { HttpService } from './utils/http/http.service';
-import { NoListComponent } from './no-list/no-list.component';
+import { AllListComponent } from './all-list/all-list.component';
+import { MessageService } from './utils/message/message.service';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,7 @@ import { NoListComponent } from './no-list/no-list.component';
     LoginComponent,
     RegisterComponent,
     DetailComponent,
-    NoListComponent,
+    AllListComponent,
   ],
   imports: [
     BrowserModule,
@@ -35,7 +36,8 @@ import { NoListComponent } from './no-list/no-list.component';
   ],
   providers: [
     HttpService,
-    NzMessageService
+    NzMessageService,
+    MessageService
   ],
   bootstrap: [AppComponent]
 })

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../utils/http/http.service';
 import { NzMessageService } from 'ng-zorro-antd';
 import { Router } from '@angular/router';
+import { MessageService } from '../utils/message/message.service';
+import { globalVal } from '../utils/globalVal';
 interface userInfo {
   username,
   email,
@@ -14,12 +16,15 @@ interface Product {
   OS,
   create_date
 }
+
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.css']
 })
+
 export class MenuComponent implements OnInit {
+  admin=globalVal.ADMIN_ID;
   administrate: Product[] = [];
   develop: Product[] = [];
   testing: Product[] = [];
@@ -32,13 +37,16 @@ export class MenuComponent implements OnInit {
   isCollapsed = false;
   constructor(private http: HttpService,
     private _message: NzMessageService,
+    private msgsv: MessageService,
     private router: Router
   ) { }
-
+  ngOnChanges(){
+    this.admin=globalVal.ADMIN_ID;
+  }
   ngOnInit() {
     this.userInfoInit();
     this.getProductList();
-
+    //this.admin=globalVal.ADMIN_CODE;
   }
 
   toggleCollapsed() {
@@ -60,15 +68,16 @@ export class MenuComponent implements OnInit {
           this.administrate = list.administrate;
           this.develop = list.develop;
           this.testing = list.testing;
-          if (this.administrate.length === 0 ){
-            if(this.develop.length===0){
-              if(this.testing.length!=0){
+          this.msgsv.sendMessage(list);
+          if (this.administrate.length === 0) {
+            if (this.develop.length === 0) {
+              if (this.testing.length != 0) {
                 this.router.navigate(['main/list/3']);
               }
-            }else{
+            } else {
               this.router.navigate(['main/list/2']);
             }
-          }else{
+          } else {
             this.router.navigate(['main/list/1']);
           }
         }

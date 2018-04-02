@@ -5,7 +5,7 @@ import { LoginComponent } from './user/login/login.component'
 import { RegisterComponent } from './user/register/register.component'
 import { MenuComponent } from './menu/menu.component';
 import{ProjListComponent} from './proj-list/proj-list.component';
-import { NoListComponent } from './no-list/no-list.component';
+import { AllListComponent } from './all-list/all-list.component';
 
 const detailRoutes: Routes=[
   // {path:':id/member',component:MembersComponent},
@@ -15,10 +15,10 @@ const detailRoutes: Routes=[
   ];
 
 const mainRoutes:Routes=[
-  {path:'nolist',component:NoListComponent},
+  {path:'all-list',component:AllListComponent},
   {path:'list/:id',component:ProjListComponent},//todo
   {path:'detail/:id',component:DetailComponent,children:detailRoutes},
-  {path:'',redirectTo:'nolist',pathMatch:'full'}
+  {path:'',redirectTo:'all-list',pathMatch:'full'}
   ];
 
 const appRoutes: Routes = [
