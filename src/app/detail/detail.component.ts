@@ -8,7 +8,9 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class DetailComponent implements OnInit {
   private id:String="";
-  constructor(public router:ActivatedRoute) {
+  constructor(public router:ActivatedRoute,
+    
+  ) {
     this.router.paramMap.subscribe(data=>{
       this.id=data.get('id');
       console.log(data.get('id'))

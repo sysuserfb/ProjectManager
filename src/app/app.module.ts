@@ -12,6 +12,7 @@ import { RegisterComponent } from './user/register/register.component';
 import { DetailComponent } from './detail/detail.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { HttpService } from './utils/http/http.service';
+import { NoListComponent } from './no-list/no-list.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { HttpService } from './utils/http/http.service';
     LoginComponent,
     RegisterComponent,
     DetailComponent,
+    NoListComponent,
   ],
   imports: [
     BrowserModule,

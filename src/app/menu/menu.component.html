@@ -6,7 +6,7 @@
       <i class="anticon" [class.anticon-menu-unfold]="isCollapsed" [class.anticon-menu-fold]="!isCollapsed">
       </i>
     </button>
-    <nz-input class="input-s" [nzType]="'search'" [nzPlaceHolder]="'input search text'" style="width: 60%;padding-left:20px;"></nz-input>
+    <nz-input class="input-s" [nzType]="'search'" [nzPlaceHolder]="'input search text'" style="width: 40%;padding-left:20px;"></nz-input>
     <!--[(ngModel)]="_value"-->
     <div class="fr">
       <nz-badge [nzCount]="5">
@@ -19,6 +19,7 @@
       <button nz-button [nzType]="'primary'" style="margin-left:20px;">
         <span>新建产品</span>
       </button>
+      <i class="anticon anticon-logout logout"></i>
     </div>
   </nz-header>
   <nz-layout>
@@ -26,45 +27,36 @@
       <div class="userProfile">
         <nz-avatar nzSize="large" nzText="U"></nz-avatar>
         <div class="info">
-          <strong>user name</strong>
-          <p class="text-truncate mb0">user email</p>
+          <strong>{{userInfo.username}}</strong>
+          <p class="text-truncate mb0">{{userInfo.email}}</p>
         </div>
       </div>
       <ul nz-menu [nzTheme]="'dark'" [nzMode]="isCollapsed?'vertical':'inline'">
-        <li nz-submenu>
-          <span title>
-            <i class="anticon anticon-user"></i>
-            <span class="nav-text">subnav 1</span>
-          </span>
-          <ul>
-            <li nz-menu-item>option1</li>
-            <li nz-menu-item>option2</li>
-            <li nz-menu-item>option3</li>
-            <li nz-menu-item>option4</li>
-          </ul>
-        </li>
-        <li nz-submenu>
+        <li nz-submenu *ngIf="administrate.length" routerLink="/main/list/1">
           <span title>
             <i class="anticon anticon-laptop"></i>
-            <span class="nav-text">subnav 1</span>
+            <span class="nav-text">管理项目</span>
           </span>
           <ul>
-            <li nz-menu-item>option5</li>
-            <li nz-menu-item>option6</li>
-            <li nz-menu-item>option7</li>
-            <li nz-menu-item>option8</li>
+            <li nz-menu-item *ngFor="let product of administrate">{{product.product_name}}</li>
           </ul>
         </li>
-        <li nz-submenu>
+        <li nz-submenu *ngIf="develop.length">
           <span title>
-            <i class="anticon anticon-notification"></i>
-            <span class="nav-text">subnav 1</span>
+            <i class="anticon anticon-code-o"></i>
+            <span class="nav-text">开发项目</span>
           </span>
           <ul>
-            <li nz-menu-item>option9</li>
-            <li nz-menu-item>option10</li>
-            <li nz-menu-item>option11</li>
-            <li nz-menu-item>option12</li>
+            <li nz-menu-item *ngFor="let product of develop">{{product.product_name}}</li>
+          </ul>
+        </li>
+        <li nz-submenu *ngIf="testing.length">
+          <span title>
+            <i class="anticon anticon-exception"></i>
+            <span class="nav-text">测试项目</span>
+          </span>
+          <ul>
+            <li nz-menu-item *ngFor="let product of testing">{{product.product_name}}</li>
           </ul>
         </li>
       </ul>

@@ -5,6 +5,7 @@ import { LoginComponent } from './user/login/login.component'
 import { RegisterComponent } from './user/register/register.component'
 import { MenuComponent } from './menu/menu.component';
 import{ProjListComponent} from './proj-list/proj-list.component';
+import { NoListComponent } from './no-list/no-list.component';
 
 const detailRoutes: Routes=[
   // {path:':id/member',component:MembersComponent},
@@ -14,9 +15,10 @@ const detailRoutes: Routes=[
   ];
 
 const mainRoutes:Routes=[
-  {path:'list',component:ProjListComponent},//todo
+  {path:'nolist',component:NoListComponent},
+  {path:'list/:id',component:ProjListComponent},//todo
   {path:'detail/:id',component:DetailComponent,children:detailRoutes},
-  {path:'',redirectTo:'list',pathMatch:'full'}
+  {path:'',redirectTo:'nolist',pathMatch:'full'}
   ];
 
 const appRoutes: Routes = [

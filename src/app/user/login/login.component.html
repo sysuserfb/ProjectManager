@@ -30,9 +30,11 @@
           <span>Remember me</span>
         </label>
         <a class="login-form-forgot" class="login-form-forgot">Forgot password</a>
-        <button nz-button class="login-form-button" [nzType]="'primary'" [nzSize]="'large'">Log in</button>
+        <button nz-button class="login-form-button" [nzType]="'primary'" [nzSize]="'large'">
+          <span style="padding-right:5px;" *ngIf="isLoading"><i class="anticon anticon-loading anticon-spin"></i></span>
+          Log in</button>
         Or
-        <a href="/register">register now!</a>
+        <a routerLink="/register">register now!</a>
       </div>
     </div>
   </form>

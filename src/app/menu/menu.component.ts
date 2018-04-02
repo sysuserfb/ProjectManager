@@ -1,18 +1,79 @@
 import { Component, OnInit } from '@angular/core';
-
+import { HttpService } from '../utils/http/http.service';
+import { NzMessageService } from 'ng-zorro-antd';
+import { Router } from '@angular/router';
+interface userInfo {
+  username,
+  email,
+  userId
+}
+interface Product {
+  product_id,
+  product_name,
+  platform,
+  OS,
+  create_date
+}
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent implements OnInit {
+  administrate: Product[] = [];
+  develop: Product[] = [];
+  testing: Product[] = [];
+  userInfo: userInfo = {
+    username: "username",
+    email: "12306@example.com",
+    userId: 0
+  };
+
   isCollapsed = false;
-  constructor() { }
+  constructor(private http: HttpService,
+    private _message: NzMessageService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
+    this.userInfoInit();
+    this.getProductList();
+
   }
 
   toggleCollapsed() {
     this.isCollapsed = !this.isCollapsed;
+  }
+
+  userInfoInit() {
+    let storage = window.localStorage;
+    this.userInfo.username = storage.user_name;
+    this.userInfo.email = storage.email;
+    this.userInfo.userId = storage.user_id;
+  }
+
+  getProductList() {
+    this.http.get('product/getProductList', { "user_id": this.userInfo.userId })
+      .subscribe(info => {
+        if (info.result === 0) {
+          let list = info.product_list;
+          this.administrate = list.administrate;
+          this.develop = list.develop;
+          this.testing = list.testing;
+          if (this.administrate.length === 0 ){
+            if(this.develop.length===0){
+              if(this.testing.length!=0){
+                this.router.navigate(['main/list/3']);
+              }
+            }else{
+              this.router.navigate(['main/list/2']);
+            }
+          }else{
+            this.router.navigate(['main/list/1']);
+          }
+        }
+      }, error => {
+        this._message.create('error', error);
+      })
   }
 }

@@ -4,7 +4,8 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
 /* 主机地址，后面要加上'/api/' localhost时可简写为'api/' */
-const HostName = 'api/';
+const testUrl="http://mock.eolinker.com/d3kKQHC3ca5e5847b3e31decedbede583d6179de32f8892?uri="
+const HostName = testUrl;
 @Injectable()
 export class HttpService {
 

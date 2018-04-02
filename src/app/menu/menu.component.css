@@ -38,7 +38,7 @@
 }
 
 .search {
-  width: 300px;
+  width: 200px;
   height: 31px;
   border-radius: 3px;
   margin: 16px 28px 16px 0;
@@ -62,8 +62,15 @@
   display: inline-block;
 }
 
-.message {
+.message{
   font-size: 2em;
+  color: white;
+}
+.logout{
+  padding-left: 18px;
+  position: relative;
+  top: 3px;
+  font-size: 1.8em;
   color: white;
 }
 
