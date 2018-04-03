@@ -6,8 +6,13 @@ interface NodeModule {
 
 //my define interface
 interface Product {
+  admin:{
+    user_id:number,
+    user_name:string
+  },
   product_id:number,
   product_name:string,
+  version:string,
   platform:string,
   OS:string,
   create_date

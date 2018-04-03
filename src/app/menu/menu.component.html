@@ -33,7 +33,7 @@
       </div>
       <ul nz-menu [nzTheme]="'dark'" [nzMode]="isCollapsed?'vertical':'inline'">
         <li nz-submenu *ngIf="administrate.length">
-          <span title routerLink="/main/list/{{admin}}">
+          <span title routerLink="/main/list/{{admin_id}}">
             <i class="anticon anticon-laptop"></i>
             <span class="nav-text">管理项目</span>
           </span>
@@ -42,7 +42,7 @@
           </ul>
         </li>
         <li nz-submenu *ngIf="develop.length">
-          <span title>
+          <span title routerLink="/main/list/{{dev_id}}">
             <i class="anticon anticon-code-o"></i>
             <span class="nav-text">开发项目</span>
           </span>
@@ -51,7 +51,7 @@
           </ul>
         </li>
         <li nz-submenu *ngIf="testing.length">
-          <span title>
+          <span title routerLink="/main/list/{{test_id}}">
             <i class="anticon anticon-exception"></i>
             <span class="nav-text">测试项目</span>
           </span>

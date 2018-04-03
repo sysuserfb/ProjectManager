@@ -12,7 +12,10 @@ import { globalVal } from '../utils/globalVal';
 })
 
 export class MenuComponent implements OnInit {
-  admin=globalVal.ADMIN_ID;
+  admin_id=globalVal.ADMIN_ID;
+  dev_id=globalVal.DEVELOP_ID;
+  test_id=globalVal.TESTING_ID;
+
   administrate: Product[] = [];
   develop: Product[] = [];
   testing: Product[] = [];
@@ -29,12 +32,13 @@ export class MenuComponent implements OnInit {
     private router: Router
   ) { }
   ngOnChanges(){
-    this.admin=globalVal.ADMIN_ID;
+    this.admin_id=globalVal.ADMIN_ID;
+    this.dev_id=globalVal.DEVELOP_ID;
+    this.test_id=globalVal.TESTING_ID;
   }
   ngOnInit() {
     this.userInfoInit();
     this.getProductList();
-    //this.admin=globalVal.ADMIN_CODE;
   }
 
   toggleCollapsed() {
@@ -60,7 +64,7 @@ export class MenuComponent implements OnInit {
           if (this.administrate.length === 0) {
             if (this.develop.length === 0) {
               if (this.testing.length != 0) {
-                this.router.navigate(['main/list/3']);
+                this.router.navigate(['main/list',globalVal.TESTING_ID]);
               }
             } else {
               this.router.navigate(['main/list/2']);

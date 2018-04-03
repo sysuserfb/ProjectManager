@@ -13,8 +13,8 @@ export class MessageService {
    *        4-你的信息
    *        5-你的信息
    */
-  sendMessage(type: number) {
-    console.log('TAG' + '---------->>>' + type);
+  sendMessage(type: any) {
+    console.log('send TAG' + '---------->>>' + type);
     
     this.subject.next({type: type});
   }
@@ -37,6 +37,8 @@ export class MessageService {
    * @returns {Observable<any>} 返回消息监听
    */
   getMessage(): Observable<any> {
+    console.log('getMessage------>');
+    
     return this.subject.asObservable();
   }
   constructor() { }
