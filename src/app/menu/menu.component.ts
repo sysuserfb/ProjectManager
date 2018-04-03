@@ -60,7 +60,10 @@ export class MenuComponent implements OnInit {
           this.administrate = list.administrate;
           this.develop = list.develop;
           this.testing = list.testing;
+
           this.msgsv.sendMessage(list);
+          let storage = window.localStorage;
+          storage.product_list=JSON.stringify(list);
           if (this.administrate.length === 0) {
             if (this.develop.length === 0) {
               if (this.testing.length != 0) {
