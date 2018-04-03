@@ -4,18 +4,6 @@ import { NzMessageService } from 'ng-zorro-antd';
 import { Router } from '@angular/router';
 import { MessageService } from '../utils/message/message.service';
 import { globalVal } from '../utils/globalVal';
-interface userInfo {
-  username,
-  email,
-  userId
-}
-interface Product {
-  product_id,
-  product_name,
-  platform,
-  OS,
-  create_date
-}
 
 @Component({
   selector: 'app-menu',

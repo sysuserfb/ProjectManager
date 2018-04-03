@@ -3,13 +3,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { MessageService } from '../utils/message/message.service';
 import { ActivatedRoute } from '@angular/router';
 import { globalVal } from '../utils/globalVal';
-interface Product {
-  product_id,
-  product_name,
-  platform,
-  OS,
-  create_date
-}
+
 @Component({
   selector: 'app-proj-list',
   templateUrl: './proj-list.component.html',
