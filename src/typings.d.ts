@@ -18,8 +18,19 @@ interface Product {
   create_date
 }
 interface userInfo {
-  username:string,
+  user_name:string,
   email:string,
-  userId:number
+  user_id:number
 }
 
+interface detail{
+  admin:userInfo,
+  dev_mem:Array<userInfo>,
+  test_mem:Array<userInfo>,
+  version_cur,
+  version_dev,
+  product_id:number,
+  product_name:string,
+  platform:string,
+  OS:string
+}

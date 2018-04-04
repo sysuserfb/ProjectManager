@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { MessageService } from '../utils/message/message.service';
 import { ActivatedRoute } from '@angular/router';
@@ -10,6 +10,7 @@ import { globalVal } from '../utils/globalVal';
   styleUrls: ['./proj-list.component.css']
 })
 export class ProjListComponent implements OnInit {
+  @ViewChild("ttop") top:ElementRef;
   msg:any={};
   routerId: string;
   productList: Product[];
@@ -33,9 +34,10 @@ export class ProjListComponent implements OnInit {
     this.subscription.unsubscribe();
   }
   ngOnInit() {
+    // this.top.click();
+    this.top.nativeElement.scrollTop=0;
     this.router.paramMap.subscribe(data => {
       this.routerId = data.get('id');
-      
       let storage =window.localStorage;
       this.msg=JSON.parse(storage.product_list);
       console.log('localstorage');

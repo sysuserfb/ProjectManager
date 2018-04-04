@@ -27,7 +27,7 @@
       <div class="userProfile">
         <nz-avatar nzSize="large" nzText="U"></nz-avatar>
         <div class="info">
-          <strong>{{userInfo.username}}</strong>
+          <strong>{{userInfo.user_name}}</strong>
           <p class="text-truncate mb0">{{userInfo.email}}</p>
         </div>
       </div>
@@ -38,7 +38,9 @@
             <span class="nav-text">管理项目</span>
           </span>
           <ul>
-            <li nz-menu-item *ngFor="let product of administrate">{{product.product_name}}</li>
+            <li nz-menu-item *ngFor="let product of administrate" 
+            routerLink="detail/{{product.product_id}}" [queryParams]="{code:admin_id}">
+              {{product.product_name}}</li>
           </ul>
         </li>
         <li nz-submenu *ngIf="develop.length">
@@ -47,7 +49,9 @@
             <span class="nav-text">开发项目</span>
           </span>
           <ul>
-            <li nz-menu-item *ngFor="let product of develop">{{product.product_name}}</li>
+            <li nz-menu-item *ngFor="let product of develop" 
+            routerLink="detail/{{product.product_id}}" [queryParams]="{code:dev_id}">
+              {{product.product_name}}</li>
           </ul>
         </li>
         <li nz-submenu *ngIf="testing.length">
@@ -56,7 +60,9 @@
             <span class="nav-text">测试项目</span>
           </span>
           <ul>
-            <li nz-menu-item *ngFor="let product of testing">{{product.product_name}}</li>
+            <li nz-menu-item *ngFor="let product of testing" 
+            routerLink="detail/{{product.product_id}}" [queryParams]="{code:test_id}">
+              {{product.product_name}}</li>
           </ul>
         </li>
       </ul>

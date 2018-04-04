@@ -20,9 +20,9 @@ export class MenuComponent implements OnInit {
   develop: Product[] = [];
   testing: Product[] = [];
   userInfo: userInfo = {
-    username: "username",
+    user_name: "username",
     email: "12306@example.com",
-    userId: 0
+    user_id: 0
   };
 
   isCollapsed = false;
@@ -47,13 +47,13 @@ export class MenuComponent implements OnInit {
 
   userInfoInit() {
     let storage = window.localStorage;
-    this.userInfo.username = storage.user_name;
+    this.userInfo.user_name = storage.user_name;
     this.userInfo.email = storage.email;
-    this.userInfo.userId = storage.user_id;
+    this.userInfo.user_id = storage.user_id;
   }
 
   getProductList() {
-    this.http.get('product/getProductList', { "user_id": this.userInfo.userId })
+    this.http.get('product/getProductList', { "user_id": this.userInfo.user_id })
       .subscribe(info => {
         if (info.result === 0) {
           let list = info.product_list;

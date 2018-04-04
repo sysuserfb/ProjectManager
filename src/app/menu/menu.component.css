@@ -62,11 +62,16 @@
   display: inline-block;
 }
 
-.message{
+.userProfile .info strong {
+  font-size: 1.4em;
+}
+
+.message {
   font-size: 2em;
   color: white;
 }
-.logout{
+
+.logout {
   padding-left: 18px;
   position: relative;
   top: 3px;

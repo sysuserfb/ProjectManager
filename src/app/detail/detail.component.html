@@ -1,5 +1,5 @@
-<div style="background-color:#fff;padding:10px;">
-  <h1>title id:{{id}}</h1>
+<div style="background-color:#fff;padding:20px;">
+  <h1>{{detail.product_name}}</h1>
   <nz-tabset>
     <nz-tab>
       <ng-template #nzTabHeading>
@@ -13,8 +13,8 @@
               <div class="userProfile">
                 <nz-avatar nzSize="large" nzText="U"></nz-avatar>
                 <div class="info">
-                  <strong>user name</strong>
-                  <p class="text-truncate mb0">user email</p>
+                  <strong>{{admin.user_name}}</strong>
+                  <p class="text-truncate mb0">{{admin.email}}</p>
                 </div>
               </div>
             </ng-template>
@@ -23,88 +23,40 @@
         <div class="mem-card">
           <div class="mem-title">项目开发者</div>
           <div nz-row [nzGutter]="8">
-            <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="8" [nzLg]="6" [nzXl]="6">
-              <nz-card class="member">
-                <ng-template #body>
-                  <div class="userProfile">
-                    <nz-avatar nzSize="large" nzText="U"></nz-avatar>
-                    <div class="info">
-                      <strong>user name</strong>
-                      <p class="text-truncate mb0">user email</p>
+            <div *ngFor="let user of devMem">
+              <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="8" [nzLg]="6" [nzXl]="6">
+                <nz-card class="member">
+                  <ng-template #body>
+                    <div class="userProfile">
+                      <nz-avatar nzSize="large" nzText="U"></nz-avatar>
+                      <div class="info">
+                        <strong>{{user.user_name}}</strong>
+                        <p class="text-truncate mb0">{{user.email}}</p>
+                      </div>
                     </div>
-                  </div>
-                </ng-template>
-              </nz-card>
-            </div>
-            <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="8" [nzLg]="6" [nzXl]="6">
-              <nz-card class="member">
-                <ng-template #body>
-                  <div class="userProfile">
-                    <nz-avatar nzSize="large" nzText="U"></nz-avatar>
-                    <div class="info">
-                      <strong>user name</strong>
-                      <p class="text-truncate mb0">user email</p>
-                    </div>
-                  </div>
-                </ng-template>
-              </nz-card>
-            </div>
-            <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="8" [nzLg]="6" [nzXl]="6">
-              <nz-card class="member">
-                <ng-template #body>
-                  <div class="userProfile">
-                    <nz-avatar nzSize="large" nzText="U"></nz-avatar>
-                    <div class="info">
-                      <strong>user name</strong>
-                      <p class="text-truncate mb0">user email</p>
-                    </div>
-                  </div>
-                </ng-template>
-              </nz-card>
+                  </ng-template>
+                </nz-card>
+              </div>
             </div>
           </div>
         </div>
         <div class="mem-card">
           <div class="mem-title">项目测试员</div>
           <div nz-row [nzGutter]="8">
-            <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="8" [nzLg]="6" [nzXl]="6">
-              <nz-card class="member">
-                <ng-template #body>
-                  <div class="userProfile">
-                    <nz-avatar nzSize="large" nzText="U"></nz-avatar>
-                    <div class="info">
-                      <strong>user name</strong>
-                      <p class="text-truncate mb0">user email</p>
+            <div *ngFor="let user of testMem">
+              <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="8" [nzLg]="6" [nzXl]="6">
+                <nz-card class="member">
+                  <ng-template #body>
+                    <div class="userProfile">
+                      <nz-avatar nzSize="large" nzText="U"></nz-avatar>
+                      <div class="info">
+                        <strong>{{user.user_name}}</strong>
+                        <p class="text-truncate mb0">{{user.email}}</p>
+                      </div>
                     </div>
-                  </div>
-                </ng-template>
-              </nz-card>
-            </div>
-            <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="8" [nzLg]="6" [nzXl]="6">
-              <nz-card class="member">
-                <ng-template #body>
-                  <div class="userProfile">
-                    <nz-avatar nzSize="large" nzText="U"></nz-avatar>
-                    <div class="info">
-                      <strong>user name</strong>
-                      <p class="text-truncate mb0">user email</p>
-                    </div>
-                  </div>
-                </ng-template>
-              </nz-card>
-            </div>
-            <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="8" [nzLg]="6" [nzXl]="6">
-              <nz-card class="member">
-                <ng-template #body>
-                  <div class="userProfile">
-                    <nz-avatar nzSize="large" nzText="U"></nz-avatar>
-                    <div class="info">
-                      <strong>user name</strong>
-                      <p class="text-truncate mb0">user email</p>
-                    </div>
-                  </div>
-                </ng-template>
-              </nz-card>
+                  </ng-template>
+                </nz-card>
+              </div>
             </div>
           </div>
         </div>
@@ -115,42 +67,87 @@
         版本控制
       </ng-template>
       <div class="version">
-        <div>
-          <span>版本控制 of id:{{id}}</span>
-          <nz-steps [(nzCurrent)]="current">
+        <div style="margin-bottom:15px;">
+          <button nz-button [nzType]="'primary'" [nzSize]="size">
+            <i class="anticon anticon-upload"></i>
+            <span>新建版本</span>
+          </button>
+          <button nz-button [nzType]="'danger'" [nzSize]="size">
+            <i class="anticon anticon-reload"></i>
+            <span>回退一个版本</span>
+          </button>
+        </div>
+        <div class="ver-card">
+          <div>开发版本
+            <span class="ver-span">v{{versionDev.version}}</span>
+          </div>
+          <nz-steps [(nzCurrent)]="cur_dev" [nzStatus]="dev_statu">
             <nz-step [nzTitle]="'资源包上传'" [nzDescription]="'date 已上传'"></nz-step>
             <nz-step [nzTitle]="'测试'" [nzDescription]="'date 已测试'"></nz-step>
             <nz-step [nzTitle]="'审核'" [nzDescription]="'date 审核通过'"></nz-step>
             <nz-step [nzTitle]="'发布'" [nzDescription]="'date 已发布'"></nz-step>
           </nz-steps>
         </div>
-        <div>
-            <span>版本控制 of id:{{id}}</span>
-            <nz-steps [(nzCurrent)]="current">
-              <nz-step [nzTitle]="'资源包上传'" [nzDescription]="'date 已上传'"></nz-step>
-              <nz-step [nzTitle]="'测试'" [nzDescription]="'date 已测试'"></nz-step>
-              <nz-step [nzTitle]="'审核'" [nzDescription]="'date 审核通过'"></nz-step>
-              <nz-step [nzTitle]="'发布'" [nzDescription]="'date 已发布'"></nz-step>
-            </nz-steps>
+        <div class="ver-card">
+          <div>发布版本
+            <span class="ver-span">v{{versionCur.version}}</span>
           </div>
+          <nz-steps [(nzCurrent)]="cur_cur" [nzStatus]="cur_statu">
+            <nz-step [nzTitle]="'资源包上传'" [nzDescription]="'date 已上传'"></nz-step>
+            <nz-step [nzTitle]="'测试'" [nzDescription]="'date 已测试'"></nz-step>
+            <nz-step [nzTitle]="'审核'" [nzDescription]="'date 审核通过'"></nz-step>
+            <nz-step [nzTitle]="'发布'" [nzDescription]="'date 已发布'"></nz-step>
+          </nz-steps>
+        </div>
       </div>
     </nz-tab>
     <nz-tab>
       <ng-template #nzTabHeading>
         审核
       </ng-template>
-      <span>审核 of id:{{id}}</span>
       <div class="review">
-        <h2>审核版本{{id}}</h2>
-        <div class="report">
-          <div class="auth">
+        <h2>审核版本
+          <span class="ver-span">v{{versionDev.version}}</span>
+          <button nz-button [nzType]="'danger'" [nzSize]="size" class="fr">
+            <i class="anticon anticon-close-circle"></i>
+            <span>审核不通过</span>
+          </button>
+          <button nz-button [nzType]="'primary'" [nzSize]="size" class="fr">
+            <i class="anticon anticon-check-circle"></i>
+            <span>审核通过</span>
+          </button>
 
+        </h2>
+        <div class="report">
+          <div class="r-title">
+            <div class="userProfile">
+              <nz-avatar nzSize="large" nzText="U"></nz-avatar>
+              <div class="info">
+                <strong>{{report[report_cur-1].user_name}}</strong>
+                <p class="text-truncate mb0">{{report[report_cur-1].email}}</p>
+              </div>
+            </div>
+            <p>提交日期：{{report[report_cur-1].submit_date}}</p>
           </div>
           <div class="text">
-
+            {{report[report_cur-1].content}}
           </div>
         </div>
-        <nz-pagination [nzPageSize]="1" [nzPageIndex]="1" [nzTotal]="15"></nz-pagination>
+        <nz-collapseset [nzBordered]="false">
+          <nz-collapse [nzTitle]="'编写回执'">
+            <div style="margin-bottom: 16px;">
+              <nz-input nzType="textarea" nzAutosize></nz-input>
+              <!-- [(ngModel)]="inputValueTwo" -->
+
+            </div>
+            <button nz-button [nzType]="'primary'" [nzSize]="size">
+              <span>Submit</span>
+            </button>
+          </nz-collapse>
+        </nz-collapseset>
+        <div style="margin-top: 16px;">
+          <nz-pagination [nzPageSize]="1" [(nzPageIndex)]="report_cur" [nzTotal]="report.length"></nz-pagination>
+        </div>
       </div>
     </nz-tab>
   </nz-tabset>

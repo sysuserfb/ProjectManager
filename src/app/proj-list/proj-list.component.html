@@ -1,11 +1,11 @@
-<div class="p-list">
+<div class="p-list" id="top" #ttop>
   <!--ngif-->
   <nz-card class="card-list" [nzBordered]="false" *ngFor="let product of productList">
     <ng-template #title>
       {{product.product_name}}
     </ng-template>
     <ng-template #extra>
-      <a routerLink="../../detail/1">More</a>
+       <a routerLink="../../detail/{{product.product_id}}">More</a> <!--[queryParams]="{code:routerId}" -->
     </ng-template>
     <ng-template #body>
       <table>
@@ -38,4 +38,5 @@
       </table>
     </ng-template>
   </nz-card>
+  <nz-back-top [nzTarget]="ttop" [nzVisibilityHeight]="10"></nz-back-top>
 </div>
