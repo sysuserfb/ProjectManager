@@ -1,3 +1,34 @@
-<p>
-  system-message works!
-</p>
+<div>
+  <ul>
+    <li>
+      <nz-card style="width:100%; margin-bottom:20px;">
+        <ng-template #title>
+          Card title
+        </ng-template>
+        <ng-template #extra>
+          <button nz-button [nzType]="'primary'" [nzSize]="size">
+            <i class="anticon anticon-download"></i><span>Download</span>
+          </button>
+        </ng-template>
+        <ng-template #body>
+          <p>Card content</p>
+        </ng-template>
+      </nz-card>
+    </li>
+    <li>
+        <nz-card style="width:100%;">
+          <ng-template #title>
+            Card title
+          </ng-template>
+          <ng-template #extra>
+            <button nz-button [nzType]="'primary'" [nzSize]="size">
+              <i class="anticon anticon-download"></i><span>Download</span>
+            </button>
+          </ng-template>
+          <ng-template #body>
+            <p>Card content</p>
+          </ng-template>
+        </nz-card>
+      </li>
+  </ul>
+</div>

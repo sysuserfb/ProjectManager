@@ -15,6 +15,9 @@ import { HttpService } from './utils/http/http.service';
 import { AllListComponent } from './all-list/all-list.component';
 import { MessageService } from './utils/message/message.service';
 import { SystemMessageComponent } from './system-message/system-message.component';
+import { NewProductComponent } from './new-product/new-product.component';
+import { NewVersionComponent } from './new-version/new-version.component';
+import { HttpClient, HttpRequest, HttpResponse } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -26,6 +29,8 @@ import { SystemMessageComponent } from './system-message/system-message.componen
     DetailComponent,
     AllListComponent,
     SystemMessageComponent,
+    NewProductComponent,
+    NewVersionComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,6 +42,7 @@ import { SystemMessageComponent } from './system-message/system-message.componen
     AppRoutingModule
   ],
   providers: [
+    HttpClient,
     HttpService,
     NzMessageService,
     MessageService

@@ -84,6 +84,11 @@ export class MenuComponent implements OnInit {
 
   }
   logout(){
-    
+    let storage = window.localStorage;
+    storage.removeItem('user_name');
+    storage.removeItem('email');
+    storage.removeItem('user_id');
+    storage.removeItem('product_list');
+    this.router.navigate(['login']);
   }
 }

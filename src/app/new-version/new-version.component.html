@@ -1,0 +1,14 @@
+<nz-upload [(nzFileList)]="fileList" [nzBeforeUpload]="beforeUpload">
+  <button nz-button>
+    <i class="anticon anticon-upload"></i>
+    <span>Select File</span>
+  </button>
+</nz-upload>
+<button nz-button [nzType]="'primary'" [nzLoading]="uploading" (click)="handleUpload()" [disabled]="fileList.length == 0"
+  style="margin-top: 16px">
+  {{ uploading ? 'Uploading' : 'Start Upload' }}
+</button>
+
+<nz-input [(ngModel)]="siteName">
+    <ng-template #addOnAfter><i class="anticon anticon-setting"></i></ng-template>
+  </nz-input>

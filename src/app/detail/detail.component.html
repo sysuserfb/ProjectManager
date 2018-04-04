@@ -1,21 +1,22 @@
 <div style="background-color:#fff;padding:20px;">
   <h1>
-      <span *ngIf="!edit_statu">{{detail.product_name}}</span>
-      <span *ngIf="edit_statu">
-        <nz-input [(ngModel)]="tempEditName" style="width:40%"></nz-input>
-      </span>
-    <span *ngIf="!edit_statu" style="font-size:0.8em;">
-      <a (click)="edit()"><i class="anticon anticon-edit"></i></a>
+    <span *ngIf="!edit_statu">{{detail.product_name}}</span>
+    <span *ngIf="edit_statu">
+      <nz-input [(ngModel)]="tempEditName" style="width:40%"></nz-input>
     </span>
-    
+    <span *ngIf="!edit_statu" style="font-size:0.8em;">
+      <a (click)="edit()">
+        <i class="anticon anticon-edit"></i>
+      </a>
+    </span>
   </h1>
   <span *ngIf="edit_statu">
-      <a (click)="save()">Save</a>
-      <span nz-table-divider></span>
-      <nz-popconfirm [nzTitle]="'Sure to cancel?'" (nzOnConfirm)="cancel()">
-        <a nz-popconfirm>Cancel</a>
-      </nz-popconfirm>
-    </span>
+    <nz-popconfirm [nzTitle]="'Sure to cancel?'" (nzOnConfirm)="save()">
+      <a nz-popconfirm>Save</a>
+    </nz-popconfirm>
+    <span nz-table-divider></span>
+    <a (click)="cancel()">Cancel</a>
+  </span>
   <nz-tabset>
     <nz-tab>
       <ng-template #nzTabHeading>
@@ -133,7 +134,7 @@
       <div class="version">
 
         <div style="margin-bottom:15px;">
-          <button nz-button [nzType]="'primary'" [nzSize]="size">
+          <button nz-button [nzType]="'primary'" [nzSize]="size" (click)="newVersion()">
             <i class="anticon anticon-upload"></i>
             <span>新建版本</span>
           </button>

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HttpService } from '../utils/http/http.service';
 import { NzMessageService } from 'ng-zorro-antd';
 import { Report, SystemMessage } from '../utils/type';
+import { MessageService } from '../utils/message/message.service';
 
 @Component({
   selector: 'app-detail',
@@ -42,12 +43,14 @@ export class DetailComponent implements OnInit {
     OS: "android"
   };
   private id: string = "";
-  constructor(public router: ActivatedRoute,
+  constructor(public AcRouter: ActivatedRoute,
+    private msg:MessageService,
+    private router:Router,
     private http: HttpService,
     private _message:NzMessageService
   ) {
     this.report[0]=new Report;
-    this.router.paramMap.subscribe(data => {
+    this.AcRouter.paramMap.subscribe(data => {
       this.id = data.get('id');
       this.code = data.get('code');
       console.log(this.id + ' - ' + this.code);
@@ -131,5 +134,15 @@ export class DetailComponent implements OnInit {
     cancel() {
       this.tempEditName="";
       this.edit_statu = 0;
+    }
+    newVersion(){
+      if(this.detail.product_id!=0){
+        this.msg.sendMessage({
+          product_name:this.detail.product_name,
+          product_id:this.detail.product_id,
+          version:this.detail.version_cur
+        });
+        this.router.navigate(['main/newVersion']);
+      }
     }
 }

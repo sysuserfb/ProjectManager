@@ -7,6 +7,8 @@ import { MenuComponent } from './menu/menu.component';
 import{ProjListComponent} from './proj-list/proj-list.component';
 import { AllListComponent } from './all-list/all-list.component';
 import { SystemMessageComponent } from './system-message/system-message.component';
+import { NewProductComponent } from './new-product/new-product.component';
+import { NewVersionComponent } from './new-version/new-version.component';
 
 const detailRoutes: Routes=[
   // {path:':id/member',component:MembersComponent},
@@ -20,6 +22,8 @@ const contentRoutes:Routes=[
   {path:'message',component:SystemMessageComponent},
   {path:'list/:id',component:ProjListComponent},//todo
   {path:'detail/:id',component:DetailComponent,children:detailRoutes},
+  {path:'newProduct',component:NewProductComponent},
+  {path:'newVersion',component:NewVersionComponent},
   {path:'',redirectTo:'all-list',pathMatch:'full'}
   ];
 
