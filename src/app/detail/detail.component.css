@@ -15,7 +15,8 @@
 }
 
 .member {
-  width: 250px;
+  /* width: 200px;
+  height: 100px; */
   margin-bottom: 20px;
 }
 
@@ -25,10 +26,12 @@
 }
 
 .version {
-  padding: 10px;
-  height: 300px;
+  padding: 0 10px;
+  min-height: 300px;
 }
-
+.cell{
+  padding: 8px;
+}
 .ver-card {
   padding-bottom: 30px;
   /* border-bottom: 1px solid rgba(199, 199, 199, 0.5); */

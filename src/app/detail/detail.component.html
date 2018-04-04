@@ -1,13 +1,67 @@
 <div style="background-color:#fff;padding:20px;">
-  <h1>{{detail.product_name}}</h1>
+  <h1>
+      <span *ngIf="!edit_statu">{{detail.product_name}}</span>
+      <span *ngIf="edit_statu">
+        <nz-input [(ngModel)]="tempEditName" style="width:40%"></nz-input>
+      </span>
+    <span *ngIf="!edit_statu" style="font-size:0.8em;">
+      <a (click)="edit()"><i class="anticon anticon-edit"></i></a>
+    </span>
+    
+  </h1>
+  <span *ngIf="edit_statu">
+      <a (click)="save()">Save</a>
+      <span nz-table-divider></span>
+      <nz-popconfirm [nzTitle]="'Sure to cancel?'" (nzOnConfirm)="cancel()">
+        <a nz-popconfirm>Cancel</a>
+      </nz-popconfirm>
+    </span>
   <nz-tabset>
+    <nz-tab>
+      <ng-template #nzTabHeading>
+        详情
+      </ng-template>
+      <table>
+        <tbody>
+          <tr>
+            <td class="cell" align="right">
+              <strong>项目管理员：</strong>
+            </td>
+            <td class="cell" align="left">{{detail.admin.user_name}}</td>
+          </tr>
+          <tr>
+            <td class="cell" align="right">
+              <strong>当前版本：</strong>
+            </td>
+            <td class="cell" align="left">{{versionCur.version}}</td>
+          </tr>
+          <tr>
+            <td class="cell" align="right">
+              <strong>操作系统：</strong>
+            </td>
+            <td class="cell" align="left">{{detail.OS}}</td>
+          </tr>
+          <tr>
+            <td class="cell" align="right" style="width:20%">
+              <strong>平台：</strong>
+            </td>
+            <td class="cell" align="left">{{detail.platform}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </nz-tab>
     <nz-tab>
       <ng-template #nzTabHeading>
         成员
       </ng-template>
       <div>
         <div class="mem-card">
-          <div class="mem-title">项目管理者</div>
+          <div class="mem-title">项目管理者
+            <button nz-button [nzType]="'primary'" class="fr">
+              <i class="anticon anticon-edit"></i>
+              <span>编辑</span>
+            </button>
+          </div>
           <nz-card class="member">
             <ng-template #body>
               <div class="userProfile">
@@ -21,7 +75,12 @@
           </nz-card>
         </div>
         <div class="mem-card">
-          <div class="mem-title">项目开发者</div>
+          <div class="mem-title">项目开发者
+            <button nz-button [nzType]="'primary'" class="fr">
+              <i class="anticon anticon-edit"></i>
+              <span>编辑</span>
+            </button>
+          </div>
           <div nz-row [nzGutter]="8">
             <div *ngFor="let user of devMem">
               <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="8" [nzLg]="6" [nzXl]="6">
@@ -41,7 +100,12 @@
           </div>
         </div>
         <div class="mem-card">
-          <div class="mem-title">项目测试员</div>
+          <div class="mem-title">项目测试员
+            <button nz-button [nzType]="'primary'" class="fr">
+              <i class="anticon anticon-edit"></i>
+              <span>编辑</span>
+            </button>
+          </div>
           <div nz-row [nzGutter]="8">
             <div *ngFor="let user of testMem">
               <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="8" [nzLg]="6" [nzXl]="6">
@@ -67,6 +131,7 @@
         版本控制
       </ng-template>
       <div class="version">
+
         <div style="margin-bottom:15px;">
           <button nz-button [nzType]="'primary'" [nzSize]="size">
             <i class="anticon anticon-upload"></i>
@@ -108,15 +173,18 @@
       <div class="review">
         <h2>审核版本
           <span class="ver-span">v{{versionDev.version}}</span>
-          <button nz-button [nzType]="'danger'" [nzSize]="size" class="fr">
-            <i class="anticon anticon-close-circle"></i>
-            <span>审核不通过</span>
-          </button>
-          <button nz-button [nzType]="'primary'" [nzSize]="size" class="fr">
-            <i class="anticon anticon-check-circle"></i>
-            <span>审核通过</span>
-          </button>
-
+          <div class="fr">
+            <nz-button-group>
+              <button nz-button [nzType]="'primary'" [nzSize]="size" (click)="reviewSuccess()">
+                <i class="anticon anticon-check-circle"></i>
+                <span>审核通过</span>
+              </button>
+              <button nz-button [nzType]="'danger'" [nzSize]="size" (click)="reviewFailed()">
+                <i class="anticon anticon-close-circle"></i>
+                <span>审核不通过</span>
+              </button>
+            </nz-button-group>
+          </div>
         </h2>
         <div class="report">
           <div class="r-title">

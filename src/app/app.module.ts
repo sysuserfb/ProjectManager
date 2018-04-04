@@ -14,6 +14,7 @@ import { AppRoutingModule } from './/app-routing.module';
 import { HttpService } from './utils/http/http.service';
 import { AllListComponent } from './all-list/all-list.component';
 import { MessageService } from './utils/message/message.service';
+import { SystemMessageComponent } from './system-message/system-message.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { MessageService } from './utils/message/message.service';
     RegisterComponent,
     DetailComponent,
     AllListComponent,
+    SystemMessageComponent,
   ],
   imports: [
     BrowserModule,

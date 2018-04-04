@@ -11,15 +11,15 @@
     <div class="fr">
       <nz-badge [nzCount]="5">
         <ng-template #content>
-          <a href="/message">
+          <a routerLink="message">
             <i class="anticon anticon-mail message"></i>
           </a>
         </ng-template>
       </nz-badge>
-      <button nz-button [nzType]="'primary'" style="margin-left:20px;">
+      <button nz-button [nzType]="'primary'" style="margin-left:20px;" (click)="addProduct()">
         <span>新建产品</span>
       </button>
-      <i class="anticon anticon-logout logout"></i>
+      <a  (click)="logout()"><i class="anticon anticon-logout logout"></i></a>
     </div>
   </nz-header>
   <nz-layout>

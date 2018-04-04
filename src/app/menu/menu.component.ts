@@ -80,4 +80,10 @@ export class MenuComponent implements OnInit {
         this._message.create('error', error);
       })
   }
+  addProduct(){
+
+  }
+  logout(){
+    
+  }
 }

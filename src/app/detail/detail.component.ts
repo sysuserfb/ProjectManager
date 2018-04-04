@@ -28,6 +28,8 @@ export class DetailComponent implements OnInit {
   cur_dev: number;
   cur_statu:String;
   dev_statu:String;
+  edit_statu:number=0;
+  tempEditName:string="";
   detail: detail = {
     admin: this.admin,
     dev_mem: this.devMem,
@@ -112,5 +114,22 @@ export class DetailComponent implements OnInit {
         }
       })
     }
-
+    reviewSuccess(){}
+    reviewFailed(){}
+    edit() {
+      this.tempEditName=this.detail.product_name;
+      this.edit_statu = 1;
+    }
+  
+    save() {
+      //Object.assign(data, this.tempEditName[ data.key ]);
+      this.detail.product_name=this.tempEditName;
+      //http
+      this.edit_statu = 0;
+    }
+  
+    cancel() {
+      this.tempEditName="";
+      this.edit_statu = 0;
+    }
 }
