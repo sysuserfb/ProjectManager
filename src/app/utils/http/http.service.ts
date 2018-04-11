@@ -4,8 +4,10 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
 /* 主机地址，后面要加上'/api/' localhost时可简写为'api/' */
-const testUrl="http://mock.eolinker.com/d3kKQHC3ca5e5847b3e31decedbede583d6179de32f8892?uri="
-const HostName = testUrl;
+const mockUrl="http://mock.eolinker.com/d3kKQHC3ca5e5847b3e31decedbede583d6179de32f8892?uri=";
+const localUrl="";
+const localtest="http://localhost:3000/";
+const HostName = mockUrl;
 @Injectable()
 export class HttpService {
 
@@ -55,6 +57,20 @@ export class HttpService {
         throw (data.msg);
       }
     });
+  }
+  public postForm(Api:string,data:FormData):Observable<any>{
+    let headers = new Headers();
+    let url = HostName + Api;
+    return this.http.post(url,data,{headers:headers}).map((res)=>{
+      let data = res.json();
+      // 当result为0，返回成功
+      if (data.result === 0) {
+        return data;
+      }
+      else {
+        throw (data.msg);
+      }
+    })
   }
   /**
    * http get方法

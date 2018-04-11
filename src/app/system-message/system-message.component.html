@@ -1,17 +1,17 @@
 <div>
   <ul>
-    <li>
+    <li *ngFor="let msg of msgList">
       <nz-card style="width:100%; margin-bottom:20px;">
         <ng-template #title>
-          Card title
+          {{msg.title}}
         </ng-template>
         <ng-template #extra>
-          <button nz-button [nzType]="'primary'" [nzSize]="size">
+          <button nz-button [nzType]="'primary'" [nzSize]="size" (click)="download(msg.downUrl)">
             <i class="anticon anticon-download"></i><span>Download</span>
           </button>
         </ng-template>
         <ng-template #body>
-          <p>Card content</p>
+          <pre>{{msg.content}}</pre>
         </ng-template>
       </nz-card>
     </li>

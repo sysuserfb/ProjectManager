@@ -17,7 +17,7 @@ import { MessageService } from './utils/message/message.service';
 import { SystemMessageComponent } from './system-message/system-message.component';
 import { NewProductComponent } from './new-product/new-product.component';
 import { NewVersionComponent } from './new-version/new-version.component';
-import { HttpClient, HttpRequest, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -35,6 +35,7 @@ import { HttpClient, HttpRequest, HttpResponse } from '@angular/common/http';
   imports: [
     BrowserModule,
     FormsModule,
+    HttpClientModule,
     ReactiveFormsModule ,
     HttpModule,
     BrowserAnimationsModule,
@@ -43,6 +44,7 @@ import { HttpClient, HttpRequest, HttpResponse } from '@angular/common/http';
   ],
   providers: [
     HttpClient,
+    HttpClientModule,
     HttpService,
     NzMessageService,
     MessageService

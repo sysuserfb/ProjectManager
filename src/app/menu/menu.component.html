@@ -16,7 +16,7 @@
           </a>
         </ng-template>
       </nz-badge>
-      <button nz-button [nzType]="'primary'" style="margin-left:20px;" (click)="addProduct()">
+      <button nz-button [nzType]="'primary'" style="margin-left:20px;" routerLink="/main/newProduct" (click)="addProduct()">
         <span>新建产品</span>
       </button>
       <a  (click)="logout()"><i class="anticon anticon-logout logout"></i></a>
