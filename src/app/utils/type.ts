@@ -27,3 +27,12 @@ export class SystemMessage {
         this.content = "";
     };
 }
+
+export class searchOption{
+    value:any;
+    label:string;
+    constructor(){
+        this.value=0;
+        this.label=""
+    }
+}

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { HttpService } from '../utils/http/http.service';
 import { NzMessageService, UploadFile } from 'ng-zorro-antd';
+import { searchOption } from '../utils/type';
 
 @Component({
   selector: 'app-new-product',
@@ -9,70 +10,75 @@ import { NzMessageService, UploadFile } from 'ng-zorro-antd';
   styleUrls: ['./new-product.component.css']
 })
 export class NewProductComponent implements OnInit {
-  admin={
-    user_id:0,
-    user_name:"username"
-  };
-  searchOptions;
+  searchOptions: searchOption[];
+  userList: searchOption[];
+  selectedDev = [];
+  selectedTest = [];
+  admin;
   validateForm: FormGroup;
-  uploading=true;
+  uploading = false;
   fileList: UploadFile[] = [];
   constructor(private fb: FormBuilder,
-    private http:HttpService,
+    private http: HttpService,
     private msg: NzMessageService) { }
-    _submitForm() {this.handleUpload() }
-    beforeUpload = (file: UploadFile): boolean => {
-      this.fileList.pop();
-      this.fileList.push(file);
-      return false;
+  _submitForm() { this.handleUpload() }
+  beforeUpload = (file: UploadFile): boolean => {
+    this.fileList.pop();
+    this.fileList.push(file);
+    return false;
+  }
+  handleUpload() {
+    const formData = new FormData();
+    this.fileList.forEach((file: any) => {
+      formData.append('file', file);
+    });
+    // formData.append('product_id','1');
+    let valid = true;
+    for (const i in this.validateForm.controls) {
+      this.validateForm.controls[i].markAsDirty();
+      valid = valid && !(this.validateForm.controls[i].hasError('required'));
+      formData.append(i, this.validateForm.controls[i].value);
+      console.log(i + ':' + this.validateForm.controls[i].value + ':' + this.validateForm.controls[i].hasError("required"));
     }
-    handleUpload() {
-      const formData = new FormData();
-      this.fileList.forEach((file: any) => {
-        formData.append('file', file);
-      });
-      formData.append('product_id','1');
-      for (const i in this.validateForm.controls) {
-        this.validateForm.controls[i].markAsDirty();
-        formData.append(i,this.validateForm.controls[i].value);
-      }
+    valid = valid && (this.fileList.length !== 0);
+    console.log(valid);
+    if (valid) {
       this.uploading = true;
-      // You can use any AJAX library you like
-      // const req = new HttpRequest('POST', 'https://jsonplaceholder.typicode.com/posts/', formData, {
-      //   // reportProgress: true
-      // });
-      // this.http.request(req).pipe(filter(e => e instanceof HttpResponse)).subscribe((event: any) => {
-      //   this.uploading = false;
-      //   this.msg.success('upload successfully.');
-      // }, (err) => {
-      //   this.uploading = false;
-      //   this.msg.error('upload failed.');
-      // });
-      this.http.postForm('filesys/Upload',formData).subscribe((info)=>{
-        this.msg.success('success');
-        console.log(formData);
-        
-      })
+      setTimeout(_ => {
+        this.uploading = false;
+      }, 5000);
+      this.http.postForm('product/newProduct', formData).subscribe((info) => {
+        this.msg.success(info.msg);
+        this.uploading = false;
+      });
     }
-    checkValid(){
-      return false;
-    }
+  }
   ngOnInit() {
+    this.userList = [];
     let storage = window.localStorage;
-    this.admin.user_name = storage.user_name;
-    this.admin.user_id = storage.user_id;
+    this.admin = storage.user_id;
     this.searchOptions = [
-    { value: this.admin.user_id, label: this.admin.user_name },
-    { value: '8', label: 'Lucy' },
-    { value: '7', label: 'Tom' }
-  ];
-  
-  this.validateForm = this.fb.group({
-    platform: [null, [Validators.required]],
-    system: [null, [Validators.required]],
-    admin: [null, [Validators.required]],
-    upload: [null, [Validators.required]],
-  });
+      { value: storage.user_id, label: storage.user_name }
+    ];
+    this.http.get('user/getUserList').subscribe(info => {
+      let list = info.userList;
+
+      for (let index = 0; index < list.length; index++) {
+        let option = new searchOption();
+        option.value = list[index].user_id;
+        option.label = list[index].user_name;
+        this.userList.push(option);
+      }
+      console.log(this.userList);
+    }, error => { this.msg.error(error); });
+    this.validateForm = this.fb.group({
+      name: [null, [Validators.required]],
+      admin: [null, [Validators.required]],
+      dev: [null, [Validators.required]],
+      test: [null, [Validators.required]],
+      platform: [null, [Validators.required]],
+      system: [null, [Validators.required]],
+    });
   }
   getFormControl(name) {
     return this.validateForm.controls[name];

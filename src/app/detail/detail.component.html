@@ -58,7 +58,7 @@
       <div>
         <div class="mem-card">
           <div class="mem-title">项目管理者
-            <button nz-button [nzType]="'primary'" class="fr">
+            <button nz-button [nzType]="'primary'" class="fr" disabled (click)="showModalForTemplate(title, content, footer)">
               <i class="anticon anticon-edit"></i>
               <span>编辑</span>
             </button>
@@ -77,7 +77,8 @@
         </div>
         <div class="mem-card">
           <div class="mem-title">项目开发者
-            <button nz-button [nzType]="'primary'" class="fr">
+            <button nz-button [nzType]="'primary'" class="fr" 
+            (click)="showModalForTemplate(title, content, footer,dev_template)">
               <i class="anticon anticon-edit"></i>
               <span>编辑</span>
             </button>
@@ -102,7 +103,8 @@
         </div>
         <div class="mem-card">
           <div class="mem-title">项目测试员
-            <button nz-button [nzType]="'primary'" class="fr">
+            <button nz-button [nzType]="'primary'" class="fr" 
+            (click)="showModalForTemplate(title, content, footer,test_template)">
               <i class="anticon anticon-edit"></i>
               <span>编辑</span>
             </button>
@@ -221,5 +223,24 @@
     </nz-tab>
   </nz-tabset>
 </div>
-
+<ng-template #title>
+  <span>{{template.title}}</span>
+</ng-template>
+<ng-template #content>
+  <div>
+    <nz-transfer
+      [nzDataSource]="list"
+      [nzTitles]="['用户列表', '项目成员']"
+      (nzSelectChange)="select($event)"
+      (nzChange)="change($event)">
+  </nz-transfer>
+  </div>
+</ng-template>
+<ng-template #footer>
+  <div>
+    <button nz-button [nzType]="'primary'" [nzSize]="'large'" (click)="handleOk($event)" [nzLoading]="isConfirmLoading">
+      提 交
+    </button>
+  </div>
+</ng-template>
 <router-outlet></router-outlet>

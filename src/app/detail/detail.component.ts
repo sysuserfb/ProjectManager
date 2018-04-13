@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpService } from '../utils/http/http.service';
-import { NzMessageService } from 'ng-zorro-antd';
+import { NzMessageService, NzModalService } from 'ng-zorro-antd';
 import { Report, SystemMessage } from '../utils/type';
 import { MessageService } from '../utils/message/message.service';
 
@@ -18,19 +18,20 @@ export class DetailComponent implements OnInit {
     user_name: "username",
     email: "@example.com"
   };
-  report:Report[]=[];
-  message:SystemMessage=new SystemMessage;
+  userList: userInfo[] = [];
+  report: Report[] = [];
+  message: SystemMessage = new SystemMessage;
   devMem: userInfo[];
   testMem: userInfo[];
   versionCur: any = {};
   versionDev: any = {};
-  report_cur:number=1;
+  report_cur: number = 1;
   cur_cur: number;
   cur_dev: number;
-  cur_statu:String;
-  dev_statu:String;
-  edit_statu:number=0;
-  tempEditName:string="";
+  cur_statu: String;
+  dev_statu: String;
+  edit_statu: number = 0;
+  tempEditName: string = "";
   detail: detail = {
     admin: this.admin,
     dev_mem: this.devMem,
@@ -44,12 +45,13 @@ export class DetailComponent implements OnInit {
   };
   private id: string = "";
   constructor(public AcRouter: ActivatedRoute,
-    private msg:MessageService,
-    private router:Router,
+    private modalService: NzModalService,
+    private msg: MessageService,
+    private router: Router,
     private http: HttpService,
-    private _message:NzMessageService
+    private _message: NzMessageService
   ) {
-    this.report[0]=new Report;
+    this.report[0] = new Report;
     this.AcRouter.paramMap.subscribe(data => {
       this.id = data.get('id');
       this.code = data.get('code');
@@ -59,8 +61,138 @@ export class DetailComponent implements OnInit {
 
   ngOnInit() {
     this.getProductDtail();
+    this.getUserList();
   }
-  getProductDtail(){
+
+  // ----------- members -------------
+  currentModal;
+  dev_template;
+  test_template;
+  tmp_add;
+  tmp_delete;
+  tmp_right;
+  template = {};
+  isConfirmLoading = false;
+  list: any[] = [];
+  getUserList() {
+    if (this.userList.length === 0) {
+      this.http.get('user/getUserList').subscribe((info) => {
+        this.userList = info.userList;
+        for (let i = 0; i < this.userList.length; i++) {
+          this.list.push({
+            key: this.userList[i].user_id,
+            title: this.userList[i].user_name,
+          });
+        }
+      }, err => { this._message.error(err); })
+    }
+  }
+  showModalForTemplate(titleTpl, contentTpl, footerTpl, template) {
+    this.template = template;
+    this.tmp_add=[];
+    this.tmp_delete=[];
+    this.tmp_right=[];
+    for (let i = 0; i < this.list.length; i++) {
+      for (let j = 0; j < template.list.length; j++) {
+        if (this.list[i].key == template.list[j].user_id) {
+          this.list[i].direction = 'right';
+          break;
+        }
+      }
+    }
+    for (let j = 0; j < template.list.length; j++) {
+      this.tmp_right[j].push(template.list[j].user_id);
+    }
+    let that = this;
+    this.currentModal = this.modalService.open({
+      title: titleTpl,
+      content: contentTpl,
+      footer: footerTpl,
+      maskClosable: false,
+      onOk() {
+        let arr=[];
+        console.log(that.list);
+        
+        for (let i = 0; i < that.list.length; i++) {
+          if(that.list[i].direction==='right'){
+            arr.push(that.list[i].key);
+          }
+        }
+        let params=new FormData();
+        params.append('product_id',that.detail.product_id+'');
+        params.append('charact',template.charact);
+        params.append('user_id',arr.join());
+        that.http.postForm('member/addMember',params).subscribe((info)=>{
+          that._message.success(info.msg);
+        },err=>{that._message.error(err)})
+      }
+    });
+  }
+  handleOk(e) {
+    this.isConfirmLoading = true;
+    setTimeout(() => {
+      /* destroy方法可以传入onOk或者onCancel。默认是onCancel */
+      this.currentModal.destroy('onOk');
+      this.isConfirmLoading = false;
+      this.currentModal = null;
+    }, 1000);
+  }
+  select(ret: any) {
+    console.log('nzSelectChange', ret);
+  }
+
+  change(ret: any) {
+    if(ret.to==='right'){
+      
+    }else if(ret.to==='left'){
+
+    }
+    console.log('nzChange', ret);
+  }
+
+  /// ---------- version -------------
+
+  getAllReport() {
+    this.http.get('report/getReport', { version_id: this.versionDev.version_id })
+      .subscribe((info) => {
+        if (info.result === 0) {
+          this.report = info.report;
+        }
+      })
+  }
+  reviewSuccess() { }
+  reviewFailed() { }
+  edit() {
+    this.tempEditName = this.detail.product_name;
+    this.edit_statu = 1;
+  }
+
+  save() {
+    //Object.assign(data, this.tempEditName[ data.key ]);
+    this.detail.product_name = this.tempEditName;
+    //http
+    this.edit_statu = 0;
+  }
+
+  cancel() {
+    this.tempEditName = "";
+    this.edit_statu = 0;
+  }
+  newVersion() {
+    if (this.detail.product_id != 0) {
+      this.msg.sendMessage({
+        product_name: this.detail.product_name,
+        product_id: this.detail.product_id,
+        version: this.detail.version_cur
+      });
+      this.router.navigate(['main/newVersion']);
+    }
+  }
+
+
+
+  //----------------------
+  getProductDtail() {
     this.http.get('product/getProductDetail', { product_id: this.id })
       .subscribe((info) => {
         if (info.result === 0) {
@@ -72,77 +204,53 @@ export class DetailComponent implements OnInit {
           this.versionDev = this.detail.version_dev;
           this.getAllReport();
 
-          let indexC=this.versionCur.status.indexOf("0");
-          if(indexC===-1){
-            this.cur_statu="process";
-            this.cur_cur=this.versionCur.status.length;
-            if(this.cur_cur===3){
-              this.cur_statu="finish";
+          let indexC = this.versionCur.status.indexOf("0");
+          if (indexC === -1) {
+            this.cur_statu = "process";
+            this.cur_cur = this.versionCur.status.length;
+            if (this.cur_cur === 3) {
+              this.cur_statu = "finish";
             }
-          }else{
-            if(indexC===0){
-              this.cur_cur=indexC-1;
-            }else{
-              this.cur_statu="error";
-              this.cur_cur=this.versionCur.status.length-1;
-            }
-          }
-          let indexD=this.versionDev.status.indexOf("0");
-          if(indexD===-1){
-            this.dev_statu="process";
-            this.cur_dev=this.versionDev.status.length;
-            if(this.cur_dev===3){
-              this.dev_statu="finish";
-            }
-          }else{
-            if(indexD===0){
-              this.cur_dev=indexD-1;
-            }else{
-              this.dev_statu="error";
-              this.cur_dev=this.versionDev.status.length-1;
+          } else {
+            if (indexC === 0) {
+              this.cur_cur = indexC - 1;
+            } else {
+              this.cur_statu = "error";
+              this.cur_cur = this.versionCur.status.length - 1;
             }
           }
-          console.log(indexC+'-'+this.cur_statu+' - '+this.cur_cur);
-          
+          let indexD = this.versionDev.status.indexOf("0");
+          if (indexD === -1) {
+            this.dev_statu = "process";
+            this.cur_dev = this.versionDev.status.length;
+            if (this.cur_dev === 3) {
+              this.dev_statu = "finish";
+            }
+          } else {
+            if (indexD === 0) {
+              this.cur_dev = indexD - 1;
+            } else {
+              this.dev_statu = "error";
+              this.cur_dev = this.versionDev.status.length - 1;
+            }
+          }
+          console.log(indexC + '-' + this.cur_statu + ' - ' + this.cur_cur);
+          // ------ nz-transfer
+          this.dev_template = {
+            list: this.devMem,
+            title: '项目开发者',
+            charact: 2
+          }
+          this.test_template = {
+            list: this.testMem,
+            title: '项目测试员',
+            charact: 3
+          }
+
         }
-      },error=>{
-        this._message.create('error',error);
-      })
+      }, error => {
+        this._message.create('error', error);
+      });
+
   }
-    getAllReport(){
-      this.http.get('report/getReport',{version_id:this.versionDev.version_id})
-      .subscribe((info)=>{
-        if(info.result===0){
-          this.report=info.report;
-        }
-      })
-    }
-    reviewSuccess(){}
-    reviewFailed(){}
-    edit() {
-      this.tempEditName=this.detail.product_name;
-      this.edit_statu = 1;
-    }
-  
-    save() {
-      //Object.assign(data, this.tempEditName[ data.key ]);
-      this.detail.product_name=this.tempEditName;
-      //http
-      this.edit_statu = 0;
-    }
-  
-    cancel() {
-      this.tempEditName="";
-      this.edit_statu = 0;
-    }
-    newVersion(){
-      if(this.detail.product_id!=0){
-        this.msg.sendMessage({
-          product_name:this.detail.product_name,
-          product_id:this.detail.product_id,
-          version:this.detail.version_cur
-        });
-        this.router.navigate(['main/newVersion']);
-      }
-    }
 }
