@@ -53,17 +53,17 @@ export class ProjListComponent implements OnInit {
       case globalVal.ADMIN_ID:
       console.log(globalVal.ADMIN_ID);
       
-        this.productList = this.msg.administrate;
+        this.productList = this.msg.admin;
         break;
       case globalVal.DEVELOP_ID:
       console.log(globalVal.DEVELOP_ID);
       
-        this.productList = this.msg.develop;
+        this.productList = this.msg.dev;
         break;
       case globalVal.TESTING_ID:
       console.log(globalVal.TESTING_ID);
       
-        this.productList = this.msg.testing;
+        this.productList = this.msg.test;
         break;
     }
   }

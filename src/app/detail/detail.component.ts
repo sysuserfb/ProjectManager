@@ -89,9 +89,9 @@ export class DetailComponent implements OnInit {
   }
   showModalForTemplate(titleTpl, contentTpl, footerTpl, template) {
     this.template = template;
-    this.tmp_add=[];
-    this.tmp_delete=[];
-    this.tmp_right=[];
+    this.tmp_add = [];
+    this.tmp_delete = [];
+    this.tmp_right = [];
     for (let i = 0; i < this.list.length; i++) {
       for (let j = 0; j < template.list.length; j++) {
         if (this.list[i].key == template.list[j].user_id) {
@@ -110,21 +110,21 @@ export class DetailComponent implements OnInit {
       footer: footerTpl,
       maskClosable: false,
       onOk() {
-        let arr=[];
+        let arr = [];
         console.log(that.list);
-        
+
         for (let i = 0; i < that.list.length; i++) {
-          if(that.list[i].direction==='right'){
+          if (that.list[i].direction === 'right') {
             arr.push(that.list[i].key);
           }
         }
-        let params=new FormData();
-        params.append('product_id',that.detail.product_id+'');
-        params.append('charact',template.charact);
-        params.append('user_id',arr.join());
-        that.http.postForm('member/addMember',params).subscribe((info)=>{
+        let params = new FormData();
+        params.append('product_id', that.detail.product_id + '');
+        params.append('charact', template.charact);
+        params.append('user_id', arr.join());
+        that.http.postForm('member/addMember', params).subscribe((info) => {
           that._message.success(info.msg);
-        },err=>{that._message.error(err)})
+        }, err => { that._message.error(err) })
       }
     });
   }
@@ -142,9 +142,9 @@ export class DetailComponent implements OnInit {
   }
 
   change(ret: any) {
-    if(ret.to==='right'){
-      
-    }else if(ret.to==='left'){
+    if (ret.to === 'right') {
+
+    } else if (ret.to === 'left') {
 
     }
     console.log('nzChange', ret);
@@ -153,12 +153,17 @@ export class DetailComponent implements OnInit {
   /// ---------- version -------------
 
   getAllReport() {
-    this.http.get('report/getReport', { version_id: this.versionDev.version_id })
+    this.http.get('version/getReport', { version_id: this.versionDev.version_id })
       .subscribe((info) => {
         if (info.result === 0) {
           this.report = info.report;
         }
       })
+  }
+  download(ver) {
+    console.log(ver);
+
+    window.open('http://localhost:3000/version/packageDownload?version_id=' + ver.version_id);
   }
   reviewSuccess() { }
   reviewFailed() { }
@@ -204,37 +209,42 @@ export class DetailComponent implements OnInit {
           this.versionDev = this.detail.version_dev;
           this.getAllReport();
 
-          let indexC = this.versionCur.status.indexOf("0");
-          if (indexC === -1) {
-            this.cur_statu = "process";
-            this.cur_cur = this.versionCur.status.length;
-            if (this.cur_cur === 3) {
-              this.cur_statu = "finish";
-            }
-          } else {
-            if (indexC === 0) {
-              this.cur_cur = indexC - 1;
+          if (JSON.stringify(this.versionCur)!="{}") {
+            let indexC = this.versionCur.status_code.indexOf("0");
+            if (indexC === -1) {
+              this.cur_statu = "process";
+              this.cur_cur = this.versionCur.status_code.length;
+              if (this.cur_cur === 3) {
+                this.cur_statu = "finish";
+              }
             } else {
-              this.cur_statu = "error";
-              this.cur_cur = this.versionCur.status.length - 1;
+              if (indexC === 0) {
+                this.cur_cur = indexC - 1;
+              } else {
+                this.cur_statu = "error";
+                this.cur_cur = this.versionCur.status_code.length - 1;
+              }
             }
           }
-          let indexD = this.versionDev.status.indexOf("0");
-          if (indexD === -1) {
-            this.dev_statu = "process";
-            this.cur_dev = this.versionDev.status.length;
-            if (this.cur_dev === 3) {
-              this.dev_statu = "finish";
-            }
-          } else {
-            if (indexD === 0) {
-              this.cur_dev = indexD - 1;
+          if (JSON.stringify(this.versionDev)!="{}") {
+            let indexD = this.versionDev.status_code.indexOf("0");
+            if (indexD === -1) {
+              this.dev_statu = "process";
+              this.cur_dev = this.versionDev.status_code.length;
+              if (this.cur_dev === 3) {
+                this.dev_statu = "finish";
+              }
             } else {
-              this.dev_statu = "error";
-              this.cur_dev = this.versionDev.status.length - 1;
+              if (indexD === 0) {
+                this.cur_dev = indexD - 1;
+              } else {
+                this.dev_statu = "error";
+                this.cur_dev = this.versionDev.status_code.length - 1;
+              }
             }
           }
-          console.log(indexC + '-' + this.cur_statu + ' - ' + this.cur_cur);
+
+          // console.log(indexC + '-' + this.cur_statu + ' - ' + this.cur_cur);
           // ------ nz-transfer
           this.dev_template = {
             list: this.devMem,

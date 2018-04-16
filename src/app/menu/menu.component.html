@@ -39,7 +39,7 @@
           </span>
           <ul>
             <li nz-menu-item *ngFor="let product of administrate" 
-            routerLink="detail/{{product.product_id}}" [queryParams]="{code:admin_id}">
+            routerLink="detail/{{product.id}}" [queryParams]="{code:admin_id}">
               {{product.product_name}}</li>
           </ul>
         </li>
@@ -50,7 +50,7 @@
           </span>
           <ul>
             <li nz-menu-item *ngFor="let product of develop" 
-            routerLink="detail/{{product.product_id}}" [queryParams]="{code:dev_id}">
+            routerLink="detail/{{product.id}}" [queryParams]="{code:dev_id}">
               {{product.product_name}}</li>
           </ul>
         </li>
@@ -61,7 +61,7 @@
           </span>
           <ul>
             <li nz-menu-item *ngFor="let product of testing" 
-            routerLink="detail/{{product.product_id}}" [queryParams]="{code:test_id}">
+            routerLink="detail/{{product.id}}" [queryParams]="{code:test_id}">
               {{product.product_name}}</li>
           </ul>
         </li>

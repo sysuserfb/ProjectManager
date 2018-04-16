@@ -56,10 +56,20 @@ export class MenuComponent implements OnInit {
     this.http.get('product/getProductList', { "user_id": this.userInfo.user_id })
       .subscribe(info => {
         if (info.result === 0) {
-          let list = info.product_list;
-          this.administrate = list.administrate;
-          this.develop = list.develop;
-          this.testing = list.testing;
+          let list = info.productList;
+          for(let key in list){
+            let li=list[key];
+            for(let i=0;i<li.length;i++){
+              if(li[i].versions.length===0){
+                li[i].version="无";
+              }else{
+                li[i].version=li[i].versions[0].version_num;
+              }
+            }
+          }
+          this.administrate = list.admin;
+          this.develop = list.dev;
+          this.testing = list.test;
 
           this.msgsv.sendMessage(list);
           let storage = window.localStorage;
@@ -77,7 +87,7 @@ export class MenuComponent implements OnInit {
           }
         }
       }, error => {
-        this._message.create('error', error);
+        this._message.error(error);
       })
   }
   addProduct(){

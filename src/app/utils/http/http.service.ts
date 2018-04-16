@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, Response, URLSearchParams } from '@angular/http';
+import { Http, Headers, Response, URLSearchParams, ResponseContentType } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
@@ -7,7 +7,7 @@ import 'rxjs/add/operator/map';
 const mockUrl="http://mock.eolinker.com/d3kKQHC3ca5e5847b3e31decedbede583d6179de32f8892?uri=";
 const localUrl="";
 const localtest="http://localhost:3000/";
-const HostName = mockUrl;
+const HostName = localtest;
 @Injectable()
 export class HttpService {
 
@@ -72,6 +72,7 @@ export class HttpService {
       }
     })
   }
+
   /**
    * http get方法
    * @param Api 访问的api地址

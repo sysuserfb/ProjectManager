@@ -148,6 +148,10 @@
         <div class="ver-card">
           <div>开发版本
             <span class="ver-span">v{{versionDev.version}}</span>
+            <button nz-button [nzType]="'primary'" [nzSize]="size" (click)="download(versionDev)">
+              <i class="anticon anticon-check-circle"></i>
+              <span>资源包下载</span>
+            </button>
           </div>
           <nz-steps [(nzCurrent)]="cur_dev" [nzStatus]="dev_statu">
             <nz-step [nzTitle]="'资源包上传'" [nzDescription]="'date 已上传'"></nz-step>
@@ -159,6 +163,10 @@
         <div class="ver-card">
           <div>发布版本
             <span class="ver-span">v{{versionCur.version}}</span>
+            <button nz-button [nzType]="'primary'" [nzSize]="size" (click)="download(versionCur)">
+              <i class="anticon anticon-check-circle"></i>
+              <span>资源包下载</span>
+            </button>
           </div>
           <nz-steps [(nzCurrent)]="cur_cur" [nzStatus]="cur_statu">
             <nz-step [nzTitle]="'资源包上传'" [nzDescription]="'date 已上传'"></nz-step>

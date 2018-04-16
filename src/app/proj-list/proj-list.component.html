@@ -5,7 +5,7 @@
       {{product.product_name}}
     </ng-template>
     <ng-template #extra>
-       <a routerLink="../../detail/{{product.product_id}}">More</a> <!--[queryParams]="{code:routerId}" -->
+       <a routerLink="../../detail/{{product.id}}">More</a> <!--[queryParams]="{code:routerId}" -->
     </ng-template>
     <ng-template #body>
       <table>
@@ -14,7 +14,7 @@
             <td class="cell" align="right">
               <strong>项目管理员：</strong>
             </td>
-            <td class="cell" align="left">{{product.admin.user_name}}</td>
+            <td class="cell" align="left">{{product.admin_name}}</td>
           </tr>
           <tr>
             <td class="cell" align="right">
@@ -26,7 +26,7 @@
             <td class="cell" align="right">
               <strong>操作系统：</strong>
             </td>
-            <td class="cell" align="left">{{product.OS}}</td>
+            <td class="cell" align="left">{{product.system}}</td>
           </tr>
           <tr>
             <td class="cell" align="right" style="width:20%">
