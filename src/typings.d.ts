@@ -25,8 +25,8 @@ interface userInfo {
 
 interface detail{
   admin:userInfo,
-  dev_mem:Array<userInfo>,
-  test_mem:Array<userInfo>,
+  dev:Array<userInfo>,
+  test:Array<userInfo>,
   version_cur,
   version_dev,
   product_id:number,

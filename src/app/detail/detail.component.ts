@@ -34,8 +34,8 @@ export class DetailComponent implements OnInit {
   tempEditName: string = "";
   detail: detail = {
     admin: this.admin,
-    dev_mem: this.devMem,
-    test_mem: this.testMem,
+    dev: this.devMem,
+    test: this.testMem,
     version_cur: {},
     version_dev: {},
     product_id: 0,
@@ -43,6 +43,7 @@ export class DetailComponent implements OnInit {
     platform: "mobile",
     OS: "android"
   };
+  info={};
   private id: string = "";
   constructor(public AcRouter: ActivatedRoute,
     private modalService: NzModalService,
@@ -88,20 +89,23 @@ export class DetailComponent implements OnInit {
     }
   }
   showModalForTemplate(titleTpl, contentTpl, footerTpl, template) {
+    if(this.userList.length===0){
+      
+    }
     this.template = template;
     this.tmp_add = [];
     this.tmp_delete = [];
     this.tmp_right = [];
     for (let i = 0; i < this.list.length; i++) {
       for (let j = 0; j < template.list.length; j++) {
-        if (this.list[i].key == template.list[j].user_id) {
+        if (this.list[i].key == template.list[j].id) {
           this.list[i].direction = 'right';
           break;
         }
       }
     }
     for (let j = 0; j < template.list.length; j++) {
-      this.tmp_right[j].push(template.list[j].user_id);
+      this.tmp_right.push(template.list[j].user_id);
     }
     let that = this;
     this.currentModal = this.modalService.open({
@@ -156,7 +160,7 @@ export class DetailComponent implements OnInit {
     this.http.get('version/getReport', { version_id: this.versionDev.version_id })
       .subscribe((info) => {
         if (info.result === 0) {
-          this.report = info.report;
+          this.report = info.reportList;
         }
       })
   }
@@ -201,10 +205,11 @@ export class DetailComponent implements OnInit {
     this.http.get('product/getProductDetail', { product_id: this.id })
       .subscribe((info) => {
         if (info.result === 0) {
+          this.info=info.info;
           this.detail = info.detail;
           this.admin = this.detail.admin;
-          this.devMem = this.detail.dev_mem;
-          this.testMem = this.detail.test_mem;
+          this.devMem = this.detail.dev;
+          this.testMem = this.detail.test;
           this.versionCur = this.detail.version_cur;
           this.versionDev = this.detail.version_dev;
           this.getAllReport();
