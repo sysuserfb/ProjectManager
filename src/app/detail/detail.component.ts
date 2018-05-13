@@ -43,7 +43,7 @@ export class DetailComponent implements OnInit {
     platform: "mobile",
     OS: "android"
   };
-  info={};
+  info;
   private id: string = "";
   constructor(public AcRouter: ActivatedRoute,
     private modalService: NzModalService,
@@ -123,7 +123,7 @@ export class DetailComponent implements OnInit {
           }
         }
         let params = new FormData();
-        params.append('product_id', that.detail.product_id + '');
+        params.append('product_id', that.info.id + '');
         params.append('charact', template.charact);
         params.append('user_id', arr.join());
         that.http.postForm('member/addMember', params).subscribe((info) => {
@@ -191,7 +191,7 @@ export class DetailComponent implements OnInit {
     if (this.detail.product_id != 0) {
       this.msg.sendMessage({
         product_name: this.detail.product_name,
-        product_id: this.detail.product_id,
+        product_id: this.info.id,
         version: this.detail.version_cur
       });
       this.router.navigate(['main/newVersion']);

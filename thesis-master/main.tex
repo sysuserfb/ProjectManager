@@ -17,7 +17,7 @@
         \makedisclaim     % 学术诚信声明
         \makeabstract     % 中英文摘要
         \tableofcontents        % 目录
-        \makelistoffiguretable
+        % \makelistoffiguretable
 
     % 论文主体部分
     \mainmatter
@@ -37,12 +37,12 @@
         % 参考文献. 因不需要纳入章节目录, 故放入附录部分
         % 实际上参考文献是属于论文主体部分
         \makereferences
-
+        \include{docs/reference}
         \include{docs/ack}    % 致谢
 
         % 附录
     \appendix
-        \include{docs/appendix1}
+        
 
     \makeGrade      % 成绩评定记录表
 \end{document}

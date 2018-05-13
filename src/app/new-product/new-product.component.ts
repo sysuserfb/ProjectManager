@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { HttpService } from '../utils/http/http.service';
 import { NzMessageService, UploadFile } from 'ng-zorro-antd';
 import { searchOption } from '../utils/type';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-new-product',
@@ -20,7 +21,8 @@ export class NewProductComponent implements OnInit {
   fileList: UploadFile[] = [];
   constructor(private fb: FormBuilder,
     private http: HttpService,
-    private msg: NzMessageService) { }
+    private msg: NzMessageService,
+    private router: Router) { }
   _submitForm() { this.handleUpload() }
   beforeUpload = (file: UploadFile): boolean => {
     this.fileList.pop();
@@ -40,6 +42,9 @@ export class NewProductComponent implements OnInit {
       formData.append(i, this.validateForm.controls[i].value);
       console.log(i + ':' + this.validateForm.controls[i].value + ':' + this.validateForm.controls[i].hasError("required"));
     }
+    let id=this.validateForm.controls['admin'].value;
+    let name=this.userList.find(value=>{return value.value==id}).label;
+    formData.append('admin_name',name);
     valid = valid && (this.fileList.length !== 0);
     console.log(valid);
     if (valid) {
@@ -50,6 +55,7 @@ export class NewProductComponent implements OnInit {
       this.http.postForm('product/newProduct', formData).subscribe((info) => {
         this.msg.success(info.msg);
         this.uploading = false;
+        this.router.navigate(['/']);
       });
     }
   }

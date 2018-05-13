@@ -1,42 +1,25 @@
 <div class="p-list" id="top" #ttop>
-  <!--ngif-->
-  <nz-card class="card-list" [nzBordered]="false" *ngFor="let product of productList">
-    <ng-template #title>
-      {{product.product_name}}
-    </ng-template>
-    <ng-template #extra>
-       <a routerLink="../../detail/{{product.id}}">More</a> <!--[queryParams]="{code:routerId}" -->
-    </ng-template>
-    <ng-template #body>
-      <table>
-        <tbody>
-          <tr>
-            <td class="cell" align="right">
-              <strong>项目管理员：</strong>
-            </td>
-            <td class="cell" align="left">{{product.admin_name}}</td>
-          </tr>
-          <tr>
-            <td class="cell" align="right">
-              <strong>当前版本：</strong>
-            </td>
-            <td class="cell" align="left">{{product.version}}</td>
-          </tr>
-          <tr>
-            <td class="cell" align="right">
-              <strong>操作系统：</strong>
-            </td>
-            <td class="cell" align="left">{{product.system}}</td>
-          </tr>
-          <tr>
-            <td class="cell" align="right" style="width:20%">
-              <strong>平台：</strong>
-            </td>
-            <td class="cell" align="left">{{product.platform}}</td>
-          </tr>
-        </tbody>
-      </table>
-    </ng-template>
-  </nz-card>
+  <nz-table #nzTable [nzDataSource]="productList" [nzPageSize]="10">
+    <thead nz-thead>
+      <tr>
+        <th nz-th><span>项目名称</span></th>
+        <th nz-th><span>项目管理员</span></th>
+        <th nz-th><span>当前版本</span></th>
+        <th nz-th><span>操作系统</span></th>
+        <th nz-th><span>平台</span></th>
+        <th nz-th><span>详情</span></th>
+      </tr>
+    </thead>
+    <tbody nz-tbody>
+      <tr nz-tbody-tr *ngFor="let data of nzTable.data">
+        <td nz-td>{{data.product_name}}</td>
+        <td nz-td>{{data.admin_name}}</td>
+        <td nz-td>{{data.version}}</td>
+        <td nz-td>{{data.system}}</td>
+        <td nz-td>{{data.platform}}</td>
+        <td nz-td><a routerLink="../../detail/{{data.id}}">更多详情</a></td>
+      </tr>
+    </tbody>
+  </nz-table>
   <nz-back-top [nzTarget]="ttop" [nzVisibilityHeight]="10"></nz-back-top>
 </div>

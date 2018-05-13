@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
 
     for (const i in this.validateForm.controls) {
       this.validateForm.controls[i].markAsDirty();
-      params[i] = this.validateForm.controls[i];
+      params[i] = this.validateForm.controls[i].value;
     }
 
     let valid = true;
@@ -40,11 +40,13 @@ export class LoginComponent implements OnInit {
       this.http.post('user/login', params).subscribe(
         (info) => {
           if (info.result === 0) {
+            let userInfo={
+              user_name:info.userInfo.user_name,
+              email : info.userInfo.user_email,
+              user_id : info.userInfo.user_id
+            }
             let storage = window.localStorage;
-            storage.token = info.token;
-            storage.user_name = info.user_info.user_name;
-            storage.email = info.user_info.email;
-            storage.user_id = info.user_info.user_id;
+            storage.userInfo = JSON.stringify(userInfo);
             //deliver the user message
             this.router.navigate(['/']);
           }

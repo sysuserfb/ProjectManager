@@ -18,7 +18,7 @@
     <div nz-form-control nz-col [nzSpan]="14">
       <nz-select formControlName="admin" nzAllowClear [nzPlaceHolder]="'Select a person'" [(ngModel)]="admin"
         nzShowSearch>
-        <nz-option *ngFor="let option of searchOptions" [nzLabel]="option.label" [nzValue]="option.value" [nzDisabled]="option.disabled">
+        <nz-option *ngFor="let option of userList" [nzLabel]="option.label" [nzValue]="option.value" [nzDisabled]="option.disabled">
         </nz-option>
       </nz-select>
       <div nz-form-explain *ngIf="getFormControl('admin').dirty&&getFormControl('admin').hasError('required')">Please input your nickname!</div>
@@ -123,7 +123,7 @@
 
   <div nz-form-item nz-row style="margin-bottom:8px;">
     <div nz-form-control nz-col [nzSpan]="14" [nzOffset]="6">
-      <button nz-button [nzSize]="'large'" [nzType]="'primary'" (click)="handleUpload()" [nzLoading]="uploading">Register</button>
+      <button nz-button [nzSize]="'large'" [nzType]="'primary'" (click)="handleUpload()" [nzLoading]="uploading">Submit</button>
     </div>
   </div>
 </form>

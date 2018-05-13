@@ -29,20 +29,18 @@
               <strong>项目管理员：</strong>
             </td>
             <td class="cell" align="left">{{info.admin_name}}</td>
-          </tr>
-          <tr>
+          
             <td class="cell" align="right">
               <strong>当前版本：</strong>
             </td>
-            <td class="cell" align="left">{{versionCur.version_num}}</td>
+            <td class="cell" align="left">{{versionCur.version_num?versionCur.version_num:'测试中'}}</td>
           </tr>
           <tr>
             <td class="cell" align="right">
               <strong>操作系统：</strong>
             </td>
             <td class="cell" align="left">{{info.system}}</td>
-          </tr>
-          <tr>
+          
             <td class="cell" align="right" style="width:20%">
               <strong>平台：</strong>
             </td>
@@ -70,7 +68,7 @@
                 <nz-avatar nzSize="large" nzText="U"></nz-avatar>
                 <div class="info">
                   <strong>{{admin.user_name}}</strong>
-                  <p class="text-truncate mb0">{{admin.email}}</p>
+                  <p class="text-truncate mb0">{{admin.user_email}}</p>
                 </div>
               </div>
             </ng-template>
@@ -93,7 +91,7 @@
                       <nz-avatar nzSize="large" nzText="U"></nz-avatar>
                       <div class="info">
                         <strong>{{user.user_name}}</strong>
-                        <p class="text-truncate mb0">{{user.email}}</p>
+                        <p class="text-truncate mb0">{{user.user_email}}</p>
                       </div>
                     </div>
                   </ng-template>
@@ -119,7 +117,7 @@
                       <nz-avatar nzSize="large" nzText="U"></nz-avatar>
                       <div class="info">
                         <strong>{{user.user_name}}</strong>
-                        <p class="text-truncate mb0">{{user.email}}</p>
+                        <p class="text-truncate mb0">{{user.user_email}}</p>
                       </div>
                     </div>
                   </ng-template>
@@ -137,28 +135,28 @@
       <div class="version">
 
         <div style="margin-bottom:15px;">
-          <button nz-button [nzType]="'primary'" [nzSize]="size" (click)="newVersion()">
+          <button nz-button [nzType]="'primary'" [nzSize]="size" (click)="newVersion()" style="float:right;">
             <i class="anticon anticon-upload"></i>
             <span>新建版本</span>
           </button>
-          <button nz-button [nzType]="'danger'" [nzSize]="size">
+          <button nz-button [nzType]="'danger'" [nzSize]="size" style="float:right;">
             <i class="anticon anticon-reload"></i>
             <span>回退一个版本</span>
           </button>
         </div>
         <div class="ver-card">
           <div>开发版本
-            <span class="ver-span">v{{versionDev.version}}</span>
+            <span class="ver-span">v{{versionDev.version_num}}</span>
             <button nz-button [nzType]="'primary'" [nzSize]="size" (click)="download(versionDev)">
-              <i class="anticon anticon-check-circle"></i>
+              <i class="anticon anticon-download"></i>
               <span>资源包下载</span>
             </button>
           </div>
           <nz-steps [(nzCurrent)]="cur_dev" [nzStatus]="dev_statu">
-            <nz-step [nzTitle]="'资源包上传'" [nzDescription]="'date 已上传'"></nz-step>
-            <nz-step [nzTitle]="'测试'" [nzDescription]="'date 已测试'"></nz-step>
-            <nz-step [nzTitle]="'审核'" [nzDescription]="'date 审核通过'"></nz-step>
-            <nz-step [nzTitle]="'发布'" [nzDescription]="'date 已发布'"></nz-step>
+            <nz-step [nzTitle]="'资源包上传'" [nzDescription]="'已上传'"></nz-step>
+            <nz-step [nzTitle]="'测试'" [nzDescription]="'已测试'"></nz-step>
+            <nz-step [nzTitle]="'审核'" [nzDescription]="'审核不通过'"></nz-step>
+            <nz-step [nzTitle]="'发布'" [nzDescription]="'已发布'"></nz-step>
           </nz-steps>
         </div>
         <div class="ver-card">
@@ -170,10 +168,10 @@
             </button>
           </div>
           <nz-steps [(nzCurrent)]="cur_cur" [nzStatus]="cur_statu">
-            <nz-step [nzTitle]="'资源包上传'" [nzDescription]="'date 已上传'"></nz-step>
-            <nz-step [nzTitle]="'测试'" [nzDescription]="'date 已测试'"></nz-step>
-            <nz-step [nzTitle]="'审核'" [nzDescription]="'date 审核通过'"></nz-step>
-            <nz-step [nzTitle]="'发布'" [nzDescription]="'date 已发布'"></nz-step>
+            <nz-step [nzTitle]="'资源包上传'" [nzDescription]="'已上传'"></nz-step>
+            <nz-step [nzTitle]="'测试'" [nzDescription]="'已测试'"></nz-step>
+            <nz-step [nzTitle]="'审核'" [nzDescription]="'审核通过'"></nz-step>
+            <nz-step [nzTitle]="'发布'" [nzDescription]="'已发布'"></nz-step>
           </nz-steps>
         </div>
       </div>
@@ -184,7 +182,7 @@
       </ng-template>
       <div class="review">
         <h2>审核版本
-          <span class="ver-span">v{{versionDev.version}}</span>
+          <span class="ver-span">v{{versionDev.version_num}}</span>
           <div class="fr">
             <nz-button-group>
               <button nz-button [nzType]="'primary'" [nzSize]="size" (click)="reviewSuccess()">
@@ -214,6 +212,8 @@
             {{report[report_cur-1].content}}
           </div>
         </div>
+        
+        </div>
         <nz-collapseset [nzBordered]="false">
           <nz-collapse [nzTitle]="'编写回执'">
             <div style="margin-bottom: 16px;">
@@ -226,7 +226,6 @@
             </button>
           </nz-collapse>
         </nz-collapseset>
-        </div>
         <div style="margin-top: 16px;">
           <nz-pagination [nzPageSize]="1" [(nzPageIndex)]="report_cur" [nzTotal]="report.length"></nz-pagination>
         </div>

@@ -37,6 +37,8 @@ export class MenuComponent implements OnInit {
     this.test_id=globalVal.TESTING_ID;
   }
   ngOnInit() {
+    console.log('oninit');
+    
     this.userInfoInit();
     this.getProductList();
   }
@@ -47,12 +49,11 @@ export class MenuComponent implements OnInit {
 
   userInfoInit() {
     let storage = window.localStorage;
-    this.userInfo.user_name = storage.user_name;
-    this.userInfo.email = storage.email;
-    this.userInfo.user_id = storage.user_id;
+    this.userInfo = JSON.parse(storage.userInfo);
   }
 
   getProductList() {
+    console.log('getList');
     this.http.get('product/getProductList', { "user_id": this.userInfo.user_id })
       .subscribe(info => {
         if (info.result === 0) {
@@ -95,9 +96,7 @@ export class MenuComponent implements OnInit {
   }
   logout(){
     let storage = window.localStorage;
-    storage.removeItem('user_name');
-    storage.removeItem('email');
-    storage.removeItem('user_id');
+    storage.removeItem('userInfo');
     storage.removeItem('product_list');
     this.router.navigate(['login']);
   }

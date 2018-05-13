@@ -23,8 +23,9 @@ export class RegisterComponent implements OnInit {
 
     for (const i in this.validateForm.controls) {
       this.validateForm.controls[i].markAsDirty();
-      params[i] = this.validateForm.controls[i];
+      params[i] = this.validateForm.controls[i].value;
     }
+console.log(params);
 
     delete params["agree"];
     delete params["phoneNumberPrefix"];
@@ -47,6 +48,13 @@ export class RegisterComponent implements OnInit {
         (info) => {
           if (info.result === 0) {
             //deliver the user message
+            let userInfo={
+              user_name:params['userName'],
+              email:params['email'],
+              phoneNumber:params['phoneNumber'],
+              user_id:info.user_id
+            }
+            window.localStorage.setItem('userInfo',JSON.stringify(userInfo));
             this.router.navigate(['/']);
           }
         }, error => {

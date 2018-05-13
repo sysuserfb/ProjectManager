@@ -7,21 +7,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SystemMessageComponent implements OnInit {
   msgList=[{
-    title:"msg-title",
-    content:"msg-content---------------------------content",
+    title:"项目成员变动",
+    content:"您被选为项目【王者荣耀2】开发者",
+    downUrl:"http"
+  },
+  {
+    title:"项目成员变动",
+    content:"您被选为项目【王者荣耀2】测试员",
+    downUrl:"http"
+  },
+  {
+    title:"产品申请成功",
+    content:"您申请的产品【王者荣耀2】通过审核",
+    downUrl:"http"
+  },
+  {
+    title:"项目成员变动",
+    content:"您被选为项目【王者荣耀3】测试员",
     downUrl:"http"
   }];
   constructor() { }
 
   ngOnInit() {
-    for(let i=0;i<10;i++){
-      let msg={
-        title:"msg-title",
-        content:"msg-content---------------------------content",
-        downUrl:"http"
-      };
-      this.msgList.push(msg);
-    }
   }
   download(url:string){
     console.log(url);

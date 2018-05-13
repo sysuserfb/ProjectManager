@@ -39,7 +39,7 @@ import { HttpClient, HttpClientModule} from '@angular/common/http';
     ReactiveFormsModule ,
     HttpModule,
     BrowserAnimationsModule,
-    NgZorroAntdModule.forRoot(),
+    NgZorroAntdModule.forRoot({ extraFontName: 'anticon', extraFontUrl: './assets/fonts/iconfont' }),
     AppRoutingModule
   ],
   providers: [
